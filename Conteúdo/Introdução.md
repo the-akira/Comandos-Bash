@@ -31,3 +31,29 @@ Iniciaremos abrindo o terminal para assim podermos executar os nossos primeiros 
 **Comando**: `clear` 
 
 **Comando**: `CTRL + L`
+
+### Fechando a Shell
+
+**Comando**: `exit`
+
+**Comando**: `CTRL + D`
+
+### Utilizando o Manual
+
+**Comando**:
+
+```
+man python	
+man libc
+man cat
+```
+
+### Obtendo Ajuda
+
+**Comando**:
+
+```
+php --help
+chmod --help
+cd --help
+```
