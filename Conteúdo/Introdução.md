@@ -58,7 +58,7 @@ history
 
 ### Limpando a Tela
 
-O comando **clear** limpa a tela do terminal.
+O comando **clear** ou `CTRL + L` limpa a tela do terminal.
 
 ```bash
 clear
@@ -67,7 +67,7 @@ CTRL + L
 
 ### Fechando a Shell
 
-O comando **exit** nos permite fechar o terminal.
+O comando **exit** ou `CTRL + D` nos permite fechar o terminal.
 
 ```bash
 exit 
