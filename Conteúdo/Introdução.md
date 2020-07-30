@@ -22,13 +22,9 @@ Iniciaremos abrindo o terminal para assim podermos executar os nossos primeiros 
 
 **Comando**: `bash --version`
 
-```
-
 ### Histórico de Comandos Digitados
 
-```
 **Comando**: `history`
-```
 
 ### Limpando a Tela
 
