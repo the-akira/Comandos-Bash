@@ -9,8 +9,7 @@ Explorando a **[command-line interface (CLI)](https://en.wikipedia.org/wiki/Comm
 ## Conteúdo
 
 - Introdução
-- Diretórios
-- Operações de Arquivos
+- Diretórios & Arquivos
 - Manipulação de Textos
 - Gerenciamento de Usuários
 - Permissões de Arquivos
