@@ -1,0 +1,14 @@
+# Referências
+
+- [LinuxCommand](http://www.linuxcommand.org/index.php)
+- [Linux Journey](https://linuxjourney.com/)
+- [The Unix Shell](https://swcarpentry.github.io/shell-novice/reference/)
+- [Linux Commands](https://i.pinimg.com/originals/dd/ea/4a/ddea4a4f7a593abcd4bb228b92b0a298.png)
+- [Bash Cheat Sheet](https://gist.github.com/LeCoupa/122b12050f5fb267e75f)
+- [Bash (Unix Shell)](https://en.wikipedia.org/wiki/Bash_(Unix_shell))
+- [Basic Unix Commands](http://mally.stanford.edu/~sr/computing/basic-unix.html)
+- [Bash Shell Reference](https://courses.cs.washington.edu/courses/cse390a/14au/bash.html)
+- [Unix / Linux Cheat Sheet](http://cheatsheetworld.com/programming/unix-linux-cheat-sheet/)
+- [An A-Z Index of the Linux command line](https://ss64.com/bash/)
+- [Introduction to the Unix Shell (Bash)](https://pabloinsente.github.io/intro-unix-shell)
+- [101 Bash Commands and Tips for Beginners to Experts](https://dev.to/awwsmm/101-bash-commands-and-tips-for-beginners-to-experts-30je)
