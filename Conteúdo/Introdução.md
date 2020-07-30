@@ -20,33 +20,18 @@ Iniciaremos abrindo o terminal para assim podermos executar os nossos primeiros 
 
 **Comando**: `echo $BASH_VERSION`
 
-**Output**: `4.4.20(1)-release`
-
 **Comando**: `bash --version`
 
-**Output**:
-
-```
-GNU bash, versão 4.4.20(1)-release (x86_64-pc-linux-gnu)
-Copyright (C) 2016 Free Software Foundation, Inc.
-Licença GPLv3+: GNU GPL versão 3 ou posterior 
 ```
 
 ### Histórico de Comandos Digitados
 
 **Comando**: `history`
 
-**Output**:
-
-```
-...
-1580  sudo apt update
-1581  sudo apt upgrade
-1582  gcc -g -o -Wall factorials factorials.c
-1583  ./factorials 
-...
 ```
 
 ### Limpando a Tela
 
-**Comando**: `clear` ou `CTRL + L`
+**Comando**: `clear` 
+
+**Comando**: `CTRL + L`
