@@ -26,8 +26,8 @@ Iniciaremos abrindo o terminal para assim podermos executar os nossos primeiros 
 
 ### Histórico de Comandos Digitados
 
+```
 **Comando**: `history`
-
 ```
 
 ### Limpando a Tela
