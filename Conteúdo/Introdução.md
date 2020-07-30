@@ -5,3 +5,48 @@
 O Bash é um processador de comandos que normalmente é executado em uma janela de texto em que o usuário digita comandos que causam ações. O Bash também pode ler e executar comandos de um arquivo, chamado de shell script. Como todos os shells do Unix, ele suporta *filename [globbing](https://en.wikipedia.org/wiki/Glob_(programming))* (wildcard matching), *[piping](https://en.wikipedia.org/wiki/Pipeline_(Unix))*, *[here documents](https://en.wikipedia.org/wiki/Here_document)*, *[command substitution](https://en.wikipedia.org/wiki/Command_substitution)*, *[variáveis](https://en.wikipedia.org/wiki/Variable_(programming))*, e *[estruturas de controle](https://en.wikipedia.org/wiki/Control_flow)* para *[condition-testing](https://en.wikipedia.org/wiki/Conditional_(programming))* e *[iteration](https://en.wikipedia.org/wiki/Iteration)*.
 
 ![img](https://i.ibb.co/nj2LVTf/shell.png)
+
+## Comandos Básicos
+
+Iniciaremos abrindo o terminal para assim podermos executar os nossos primeiros comandos, vamos utilizar o comando `CTRL + ALT + T` para inicializá-lo.
+
+### Imprimindo Hello World
+
+**Comando**: `echo "Hello World"`
+
+**Output**: `Hello World`
+
+### Obtendo a versão do Bash
+
+**Comando**: `echo $BASH_VERSION`
+
+**Output**: `4.4.20(1)-release`
+
+**Comando**: `bash --version`
+
+**Output**:
+
+```
+GNU bash, versão 4.4.20(1)-release (x86_64-pc-linux-gnu)
+Copyright (C) 2016 Free Software Foundation, Inc.
+Licença GPLv3+: GNU GPL versão 3 ou posterior 
+```
+
+### Histórico de Comandos Digitados
+
+**Comando**: `history`
+
+**Output**:
+
+```
+...
+1580  sudo apt update
+1581  sudo apt upgrade
+1582  gcc -g -o -Wall factorials factorials.c
+1583  ./factorials 
+...
+```
+
+### Limpando a Tela
+
+**Comando**: `clear` ou `CTRL + L`
