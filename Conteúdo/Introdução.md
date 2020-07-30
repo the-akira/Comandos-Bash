@@ -14,37 +14,43 @@ Iniciaremos abrindo o terminal para assim podermos executar os nossos primeiros 
 
 O comando **echo** no linux é usado para exibir o **texto**/**string** que é passada como argumento.
 
-**Comando**: 
-
 ```bash
 echo "Hello World"
 ```
 
 ### Imprimindo Variáveis de Ambiente
 
-**Comando**: 
-
 ```bash
 echo $HOME # Diretório Home do usuário atual
-echo $PWD # Imprime o diretório de trabalho atual
-echo $TERM # Terminal sendo utilizado
-echo $USER # Usuário atual do sistema
-echo $SHELL # Shell sendo utilizada
-echo $HOSTNAME # O nome do host do computador no momento.
-echo $LANG # Linguagem atual em uso
-echo $COLUMNS # O número de colunas que estão sendo usadas para desenhar a saída na tela.
-echo $BASH_VERSION # Versão do Bash
-echo $BASHOPTS # A lista de opções usadas quando o bash foi executado. Isso pode ser útil para descobrir se o ambiente do shell funcionará da maneira que você deseja.
-echo $PATH # Uma lista de diretórios que o sistema verificará ao procurar comandos. Quando um usuário digita um comando, o sistema verifica os diretórios nesta ordem quanto ao executável.
-```
 
-**Comando**: `bash --version`
+echo $PWD # Imprime o diretório de trabalho atual
+
+echo $TERM # Terminal sendo utilizado
+
+echo $USER # Usuário atual do sistema
+
+echo $SHELL # Shell sendo utilizada
+
+echo $HOSTNAME # O nome do host do computador no momento.
+
+echo $LANG # Linguagem atual em uso
+
+echo $COLUMNS # O número de colunas que estão sendo usadas para desenhar a saída na tela.
+
+echo $BASH_VERSION # Versão do Bash
+
+echo $BASHOPTS 
+# A lista de opções usadas quando o bash foi executado. 
+# Isso pode ser útil para descobrir se o ambiente do shell funcionará da maneira que você deseja.
+
+echo $PATH 
+# Uma lista de diretórios que o sistema verificará ao procurar comandos. 
+# Quando um usuário digita um comando, o sistema verifica os diretórios nesta ordem quanto ao executável.
+```
 
 ### Histórico de Comandos Digitados
 
-O comando **history** exibe ou manipula a lista do histórico de comandos.
-
-**Comando**: 
+O comando **history** exibe ou manipula a lista do histórico de comandos. 
 
 ```bash
 history
@@ -53,8 +59,6 @@ history
 ### Limpando a Tela
 
 O comando **clear** limpa a tela do terminal.
-
-**Comando**: 
 
 ```bash
 clear
@@ -72,9 +76,7 @@ CTRL + D
 
 ### Utilizando o Manual
 
-O comando **man** é uma interface para os manuais de referência on-line.
-
-**Comando**:
+O comando **man** é uma interface para os manuais de referência online.
 
 ```bash
 man python	
@@ -86,10 +88,17 @@ man cat
 
 Muitos programas executáveis suportam uma opção **"--help"** que exibe uma descrição da sintaxe e das opções suportadas pelo comando.
 
-**Comando**:
-
 ```bash
 php --help
 chmod --help
 ls --help
+```
+
+### Verificando Versões
+
+Muitos programas suportam uma opção **"--version"** que exibe a versão atual do programa que estamos utilizando.
+
+```bash
+bash --version
+python --version
 ```
