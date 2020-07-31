@@ -106,7 +106,7 @@ A partir da esquerda: permissões de arquivo, número de links, nome do propriet
 ls -l
 ```
 
-O meu resultado seria
+**Output:**
 
 ```
 total 12
@@ -121,7 +121,7 @@ Os comandos possuem uma característica chamada de *flags*, também conhecido co
 ls -la
 ```
 
-O meu resultado seria
+**Output:**
 
 ```
 total 24
@@ -152,3 +152,141 @@ touch script.py readme.md
 ```
 
 Existem também muitas outras maneiras de criar arquivos, como redirecionamento e editores de texto que veremos em breve.
+
+### Criando Diretórios
+
+O comando **mkdir** nos permite criar diretórios, ele criará um diretório se ele ainda não existir. É possível também criar vários diretórios ao mesmo tempo.
+
+Criando apenas um diretório
+
+```bash
+mkdir projeto
+```
+
+Criando múltiplos diretórios
+
+```bash
+mkdir imagens videos
+```
+
+Criando subdiretórios com a opção **"-p"**
+
+```bash
+mkdir -p scripts/python
+```
+
+### Removendo Arquivos e Diretórios
+
+Para remover arquivos, podemos utilizar o comando **rm**. O comando **rm** é usado para excluir arquivos e diretórios.
+
+Tenha cuidado ao usar **rm**, pois não há como recuperar os arquivos removidos por este comando. Depois que eles se foram, eles se foram para sempre.
+
+Para remover especificamente diretórios, podemos utilizar o comando **rmdir**.
+
+Vejamos alguns exemplos
+
+Adicionando a opção **"-i"** nos fornecerá um prompt para confirmarmos se realmente desejamos remover o arquivo, adicionando assim mais segurança ao processo de remoção.
+
+```bash
+rm -i readme.md
+```
+
+Já a opção **"-f"** ou **force** diz ao comando **rm** para remover todos os arquivos, estejam eles protegidos contra gravação ou não.
+
+```bash
+rm -f script.py
+```
+
+Por padrão **rm** não é capaz de remover diretórios, para obtermos essa funcionalidade temos de adicionar a flag **"-r"** de **recursive** para remover todos os arquivos e quaisquer subdiretórios que possam ter.
+
+```bash
+rm -r scripts
+```
+
+Também podemos simplesmente remover um diretório com o comando **rmdir**
+
+```bash
+rmdir imagens
+```
+
+### Movendo e Renomeando Arquivos e Diretórios
+
+O comando **mv** é utilizado para mover arquivos e diretórios
+
+Para renomear um arquivo é muito simples
+
+```bash
+mv arquivo.txt texto.txt
+```
+
+O arquivo de nome `arquivo.txt` agora irá se chamar `texto.txt`
+
+Podemos também mover um arquivo para um diretório diferente
+
+```bash
+mv texto.txt Arquivos/
+```
+
+Ou até mesmo mover mais de um arquivo:
+
+```bash
+mv readme.md script.py Arquivos/
+```
+
+A opção **"-i"** nos oferece um prompt que nos avisa se desejamos sobrescrever arquivos que possuem o mesmo nome.
+
+```bash
+mv -i script.py Arquivos/
+```
+
+Digamos que você queira mover um arquivo para substituir o anterior. Você também pode fazer um backup desse arquivo e ele renomeará a versão antiga com um **~**
+
+```bash
+mv -b script.py Arquivos/
+```
+
+Movendo diretórios para um diretório. Imagine que temos o diretório **imagens** e **vídeos** e desejamos movê-los para o diretório **Arquivos**.
+
+```bash
+mv imagens/ videos/ Arquivos/
+```
+
+### Copiando Arquivos e Diretórios
+
+O comando **cp** nos permite copiar arquivos e diretórios.
+
+Podemos por exemplo copiar um arquivo para um diretório específico
+
+```bash
+cp readme.md Arquivos/
+```
+
+**readme.md** é o arquivo que estamos copiando e **Arquivos** é o diretório de destino da cópia.
+
+Podemos também copiar vários arquivos e diretórios e usar *wildcards*. Um *wildcard* é um caracter que pode ser substituído por uma seleção baseada em padrão, oferecendo mais flexibilidade nas pesquisas. Você pode usar *wildcards* em todos os comandos para obter mais flexibilidade:
+
+- `*`: É usado para representar todos os caracteres únicos ou qualquer *string*.
+- `?`: Usado para representar um caracter
+- `[]`: Usado para representar qualquer caracter entre colchetes
+
+Por exemplo, podemos copiar todos os arquivos com a extensão **.txt** para o diretório **Arquivos**
+
+```bash
+cp *.txt Arquivos
+``` 
+
+Uma opção muito útil é **"-r"**, ele copiará recursivamente os arquivos e diretórios dentro de um diretório.
+
+```bash
+cp -r Arquivos/ ArquivosCopia
+```
+
+Neste exemplo somos capazes de copiar por complete o diretório Arquivos, incluindo subdiretórios e arquivos.
+
+Se copiarmos um arquivo para um diretório com o mesmo nome de arquivo, o arquivo será substituído pelo que você estiver copiando. Se tivermos um arquivo que não desejamos substituir acidentalmente. Podemos usar a opção **"-i"** (de interativo) para avisar antes de substituir um arquivo.
+
+```bash
+cp -i texto.txt Arquivos
+```
+
+Nesse caso nos será perguntado se desejamos sobrescrever o arquivo **texto.txt**, uma vez que já existe um arquivo com o mesmo nome dentro do diretório **Arquivos**.
