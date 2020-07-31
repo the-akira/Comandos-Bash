@@ -134,3 +134,21 @@ drwxrwxr-x  2 akira akira 4096 jul 30 05:04 Imagens
 ```
 
 Em breve veremos mais detalhes sobre usuários e permissões.
+
+### Criando Arquivos
+
+Vamos aprender a criar arquivos. Uma maneira muito simples é usar o comando **touch**. O touch permite criarmos novos arquivos vazios.
+
+Criando apenas um arquivo
+
+```bash
+touch arquivo.txt
+```
+
+Criando múltiplos arquivos
+
+```bash
+touch script.py readme.md
+```
+
+Existem também muitas outras maneiras de criar arquivos, como redirecionamento e editores de texto que veremos em breve.
