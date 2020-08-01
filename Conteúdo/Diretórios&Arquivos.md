@@ -290,3 +290,66 @@ cp -i texto.txt Arquivos
 ```
 
 Nesse caso nos será perguntado se desejamos sobrescrever o arquivo **texto.txt**, uma vez que já existe um arquivo com o mesmo nome dentro do diretório **Arquivos**.
+
+### Examinando Arquivos
+
+O comando **file** examinará um arquivo e informará que tipo de arquivo ele é. Ele mostrará uma descrição do conteúdo do arquivo.
+
+Por exemplo
+
+```bash
+file Arquivos # Arquivos: directory
+file readme.md # readme.md: ASCII text
+file imagem.png # imagem.png: PNG image data, 1400 x 1400, 8-bit/color RGB, non-interlaced
+```
+
+### Lendo Arquivos
+
+Para lermos o conteúdo de um arquivo podemos utilizar o comando **cat**, abreviação de *concatenate*, ele não apenas exibe o conteúdo do arquivo, mas pode combinar vários arquivos e mostrar o *output* deles.
+
+```bash
+cat script.py readme.md
+# print('Hello World')
+# Arquivo Leia-me
+```
+
+Podemos também copiar um arquivo com o comando **cat**:
+
+```bash
+cat script.py > copia_script.py
+```
+
+O `>` é um operador de redirecionamento que nos permite mudar onde o *standard output* irá. Nos possibilita enviar o output de um comando como o **cat** ou **echo** para um arquivo, ao invés da tela.
+
+**Less** é um utilitário de linha de comando que exibe o conteúdo de um arquivo ou *output* de um comando, uma página de cada vez. É semelhante ao **more**, mas possui recursos mais avançados e permite navegar para frente e para trás no arquivo.
+
+Ao iniciar **less**, ele não lê o arquivo inteiro, o que resulta em tempos de carregamento muito mais rápidos.
+
+```bash
+less /usr/share/common-licenses/GPL-3
+```
+
+Se você quiser mostrar os números de linha, inicie o programa com a opção **"-N"**:
+
+```bash
+less -N /usr/share/common-licenses/GPL-3
+```
+
+Para navegar com o **less** podemos utilizar os seguintes comandos:
+
+- `q`: Utilizado para sair do **less** e retornar para a shell
+- `Page Up`, `Page Down`, `Up`, `Down`: Navegação através das teclas setas ou das teclas Page
+- `g`: Move para o início do arquivo
+- `G`: Move para o final do arquivo
+- `/search`: Podemos buscar por um texto específico dentro de um documento de texto por exemplo. Para início temos que colocar na frente da palavra que desejamos buscar um `/`, por exemplo `/developer`
+- `h`: Help/Ajuda dentro do programa **less**, traz um sumário de informações e comandos.
+
+O comando **more** é um comando para visualizar (mas não modificar) o conteúdo de um arquivo de texto, uma tela por vez.
+
+Por exemplo
+
+```bash
+more /proc/cpuinfo
+```
+
+Para navegarmos no arquivo com **more** podemos usar as seguintes teclas: `[enter]` para irmos para a próxima linha, `[barra de espaço]` para a próxima página, `b` para retornarmos uma página, `q` para sairmos do arquivo, `h` para apresentar o texto de ajuda.
