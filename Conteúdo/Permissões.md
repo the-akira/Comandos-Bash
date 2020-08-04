@@ -86,7 +86,7 @@ O comando **chmod** também pode ser usado para controlar as permissões de aces
 - **w**: Permite que arquivos dentro do diretório sejam criados, excluídos ou renomeados se o atributo **x** também estiver definido.
 - **x**: Permite que um diretório seja acessado (por exemplo: `cd docs`)
 
-Configurações interessante para diretórios:
+Configurações interessantes para diretórios:
 
 | Valor  | Significado  |
 |---|---|
