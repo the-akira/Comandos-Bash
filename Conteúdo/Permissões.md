@@ -168,7 +168,7 @@ Após executar o comando **su**, você terá uma nova sessão de shell como supe
 
 Em algumas distribuições é usado um método alternativo. Em vez de usar **su**, esses sistemas empregam o comando **sudo**. Com o sudo, um ou mais usuários recebem privilégios de superusuário conforme a necessidade. Para executar um comando como superusuário, o comando desejado é simplesmente precedido pelo comando sudo. Depois que o comando é inserido, o usuário solicita a senha do usuário, em vez da senha do superusuário:
 
-```
+```bash
 sudo script.py
 ```
 
