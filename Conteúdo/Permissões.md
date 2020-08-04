@@ -156,7 +156,7 @@ Se adicionarmos dois pontos e nome de grupo após o usuário, podemos definir o 
 sudo chown akira:programadores script.js
 ```
 
-### Tornando-se Superusuário por um pequeno período
+### Tornando-se Superusuário
 
 Geralmente, é necessário se tornar o superusuário para executar tarefas importantes de administração do sistema. Na maioria das distribuições, existe um programa que pode fornecer acesso temporário aos privilégios do superusuário. Este programa é chamado **su**(abreviação de usuário substituto) e pode ser usado nesses casos em que você precisa ser o superusuário. Para se tornar o superusuário, basta digitar o comando su. Você será solicitado a senha do superusuário:
 
