@@ -23,9 +23,9 @@ ls -l /bin/bash
 
 Podemos observar que:
 
-- O arquivo `/bin/bash` é possuído pelo usuário **root**
+- O arquivo `/bin/bash` pertence ao usuário **root**
 - O superusuário tem o direito de ler, escrever e executar este arquivo
-- O arquivo é possuído pelo grupo **root**
+- O arquivo pertence ao grupo **root**
 - Membros do grupo **root** também podem ler e executar esse arquivo
 - Todos os demais podem ler e executar este arquivo.
 
