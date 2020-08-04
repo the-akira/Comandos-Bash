@@ -10,10 +10,9 @@ Explorando a **[command-line interface (CLI)](https://en.wikipedia.org/wiki/Comm
 
 - Introdução
 - Diretórios & Arquivos
-- Manipulação de Textos
+- Manipulação de Textos e Buscas
 - Gerenciamento de Usuários
 - Permissões de Arquivos
-- Buscando e Ordenando
 - Compressão de Arquivos
 - Informações do Sistema
 - Gerenciamento de Processos

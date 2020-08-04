@@ -130,7 +130,7 @@ chmod o+x script.py
 
 Além de modificar as permissões nos arquivos, podemos também modificar a propriedade do grupo e do usuário, ou seja, a quem pertence o arquivo.
 
-Modificar a propriedade do usuário
+##### Modificar a propriedade do usuário
 
 ```bash
 sudo chown akira arquivo.txt
@@ -140,7 +140,7 @@ Este comando irá setar **akira** como proprietário de `arquivo.txt`
 
 #### chgrp
 
-Modificar propriedade do grupo
+##### Modificar propriedade do grupo
 
 ```bash
 sudo chgrp programadores script.js
@@ -148,7 +148,7 @@ sudo chgrp programadores script.js
 
 Este comando irá setar o grupo de `script.js` para **programadores**
 
-Modificar a propriedade do usuário e do grupo ao mesmo tempo
+##### Modificar a propriedade do usuário e do grupo ao mesmo tempo
 
 Se adicionarmos dois pontos e nome de grupo após o usuário, podemos definir o usuário e o grupo ao mesmo tempo.
 
