@@ -88,6 +88,8 @@ Para visualizarmos informações sobre a CPU, usamos o comando lscpu, pois mostr
 lscpu
 ```
 
+Também podemos recorrer ao arquivo **cpuinfo**
+
 ```bash
 cat /proc/cpuinfo 
 ```
