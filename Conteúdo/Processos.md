@@ -50,3 +50,66 @@ Um [kernel](https://en.wikipedia.org/wiki/Kernel_(computing)) do sistema operaci
 A imagem a seguir representa os vários estados do processo, exibidos em um diagrama de estados, com setas indicando possíveis transições entre estados.
 
 ![img](https://i.ibb.co/ZLzLZT4/Process-states.png)
+
+## Rastreando Processos com top
+
+[top](https://linux.die.net/man/1/top) é a ferramenta que usamos para obter uma visualização em tempo real da utilização do sistema por nossos processos:
+
+![img](https://i.ibb.co/m4KLnQ3/top.png)
+
+Vamos então interpretar o significado do *output* do top
+
+### Linha 1
+
+É a mesma informação que veríamos se executássemos o comando **uptime**
+
+Os campos são respectivamente, da esquerda para a direita:
+
+1. Horário atual
+2. Há quanto tempo o sistema está em execução
+3. Quantos usuários estão conectados no momento
+4. Média de carga do sistema
+
+### Linha 2
+
+Tarefas em execução, em suspensão, interrompidas e *zombied*.
+
+### Linha 3
+
+Informação do CPU:
+
+1. us: user CPU time - Porcentagem do tempo de CPU gasto na execução de processos de usuários que não são *[niced](https://en.wikipedia.org/wiki/Nice_(Unix))*.
+2. sy: system CPU time - Porcentagem do tempo de CPU gasto executando os processos do kernel e o próprio kernel.
+3. ni: nice CPU time - Porcentagem de tempo de CPU gasto executando processos *[niced](https://en.wikipedia.org/wiki/Nice_(Unix))*
+4. id: tempo ocioso da CPU - porcentagem do tempo da CPU gasto ocioso.
+5. wa: I/O wait - Porcentagem do tempo de CPU gasto aguardando Input/Output. Se esse valor for baixo, o problema provavelmente não é a I/O de disco ou de rede.
+6. hi: interrupções de hardware - Porcentagem de tempo de CPU gasto servindo interrupções de hardware.
+7. si: interrupções de software - porcentagem de tempo de CPU gasto atendendo interrupções de software.
+8. st: steal time - Se você estiver executando máquinas virtuais, esta é a porcentagem de tempo de CPU que foi extraída de você para outras tarefas.
+
+### Linhas 4 e 5
+
+Representam o uso de memória e uso de swap.
+
+### Lista de Processos Atualmente em Uso
+
+Significado de cada coluna:
+
+1. **PID**: ID do processo
+2. **USER**: Usuário que é o proprietário do processo
+3. **PR**: Prioridade do processo
+4. **NI**: O valor *nice*
+5. **VIRT**: Memória virtual usada pelo processo
+6. **RES**: Memória física usada no processo
+7. **SHR**: Memória compartilhada do processo
+8. **S**: Indica o status do processo: `S = sleep`, `R = running`, `Z = zombie`, `D = uninterruptible`, `T = stopped`
+9. **%CPU**: O percentual de CPU usado por esse processo
+10. **%MEM**: Porcentagem de RAM usada por esse processo
+11. **TIME+**: Tempo total de atividade deste processo
+12. **COMMAND**: Nome do processo
+
+Também podemos especificar um **ID do processo** se desejarmos apenas controlar certos processos específicos:
+
+```bash
+top -p 1
+```
