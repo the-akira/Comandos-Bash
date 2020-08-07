@@ -40,7 +40,7 @@ O sistema operacional também pode fornecer mecanismos de [comunicação entre p
 
 ## Estados do Processo
 
-Um [kernel](https://en.wikipedia.org/wiki/Kernel_(computing)) do sistema operacional que permite que a **multitarefa** necessita que os processos tenham [determinados estados](https://en.wikipedia.org/wiki/Process_states). Os nomes desses estados não são padronizados, mas eles têm uma funcionalidade semelhante.
+Um [kernel](https://en.wikipedia.org/wiki/Kernel_(computing)) do sistema operacional que permite a **multitarefa** necessita que os processos tenham [determinados estados](https://en.wikipedia.org/wiki/Process_states). Os nomes desses estados não são padronizados, mas eles têm uma funcionalidade semelhante.
 
 - Primeiro, o processo é "criado" ao ser carregado de um dispositivo de armazenamento secundário (unidade de disco rígido, CD-ROM, etc.) na memória principal. Depois disso, o [agendador de processos](https://en.wikipedia.org/wiki/Scheduling_(computing)) atribui o estado "em espera".
 - Enquanto o processo está "em espera", ele aguarda o agendador fazer a chamada [troca de contexto](https://en.wikipedia.org/wiki/Context_switch). A opção de contexto carrega o processo no processador e altera o estado para "em execução" enquanto o processo "em execução" anterior é armazenado no estado "em espera".
