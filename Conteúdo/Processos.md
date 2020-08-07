@@ -290,12 +290,19 @@ Systemd é controlado pelo utilitário **systemctl**, a tabela a seguir apresent
 | systemctl reload name  | Recarrega a configuração para name  |
 | systemctl status name  | Apresenta o status atual de name  |
 | systemctl  | Exibe o status de todos os serviços atuais  |
-| systemctl enable name  | Ativa name para executar na inicialização, conforme especificado no arquivo da unidade (o arquivo para o qual o link simbólico aponta). O processo de ativar ou desativar um serviço para iniciar automaticamente na inicialização consiste em adicionar ou remover links simbólicos dentro do diretório /etc/systemd/system |
+| systemctl enable name  | Ativa name para executar na inicialização, conforme especificado no arquivo da unidade (o arquivo para o qual o link simbólico aponta). O processo de ativar ou desativar um serviço para iniciar automaticamente na inicialização consiste em adicionar ou remover links simbólicos dentro do diretório `/etc/systemd/system` |
 | systemctl disable name  | Desativa name para execução na inicialização, conforme especificado no arquivo da unidade (o arquivo para o qual o link simbólico aponta)  |
 | systemctl is-enabled name  | Verifique se name (um serviço específico) está ativado no momento  |
 | systemctl –type=service  | Exibe todos os serviços e informa se eles estão ativados ou desativados |
 | systemctl poweroff  | Desliga a máquina (halt)  |
 | systemctl reboot  | Reinicia o sistema  |
+
+Por exemplo:
+
+```bash
+systemctl status apache2
+systemctl restart mysql
+```
 
 ## Rastreando Processos com htop
 
