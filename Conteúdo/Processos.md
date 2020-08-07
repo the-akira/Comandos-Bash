@@ -55,6 +55,8 @@ A imagem a seguir representa os vários estados do processo, exibidos em um diag
 
 [top](https://linux.die.net/man/1/top) é a ferramenta que usamos para obter uma visualização em tempo real da utilização do sistema por nossos processos:
 
+Pressione **H** para acessar uma página que explica brevemente as opções principais para personalizar o programa.
+
 ![img](https://i.ibb.co/m4KLnQ3/top.png)
 
 Vamos então interpretar o significado do *output* do top
@@ -113,3 +115,213 @@ Também podemos especificar um **ID do processo** se desejarmos apenas controlar
 ```bash
 top -p 1
 ```
+
+## Tipos de Processos
+
+Existem fundamentalmente dois tipos de processos no Linux:
+
+- **Foreground processes**: Também chamados de processos interativos, são inicializados e controlados por meio de uma sessão do terminal. Em outras palavras, deve haver um usuário conectado ao sistema para iniciar esses processos; eles não foram iniciados automaticamente como parte das funções/serviços do sistema.
+- **Background processes**: Também chamados de processos não-interativos/automáticos, são processos não conectados a um terminal; eles não esperam nenhum *input* do usuário.
+
+### Daemons
+
+[Daemons](https://en.wikipedia.org/wiki/Daemon_(computing)) são tipos especiais de processos em segundo plano que iniciam na inicialização do sistema e continuam funcionando para sempre como um serviço, eles não morrem. Eles são iniciados como tarefas do sistema (executadas como serviços), espontaneamente. No entanto, eles podem ser controlados por um usuário através do [processo init](https://en.wikipedia.org/wiki/Init).
+
+### Criação de Processos no Linux
+
+Normalmente, um novo processo é criado quando um processo existente faz uma cópia exata de si mesmo na memória. O processo filho terá o mesmo ambiente que seu pai, mas apenas o número de identificação(ID) do processo é diferente.
+
+Existem duas maneiras convencionais usadas para criar um novo processo no Linux:
+
+- Usando a função **system()** - esse método é relativamente simples, no entanto, é ineficiente e possui riscos de segurança significativos.
+- Usando as funções **fork()** e **exec()** - técnica um pouco avançada, mas que oferece maior flexibilidade, velocidade e segurança.
+
+### Identificando Processos no Linux
+
+Como o Linux é um sistema multiusuário, o que significa que diferentes usuários podem executar vários programas no sistema, cada instância em execução de um programa deve ser identificada exclusivamente pelo kernel.
+
+Um programa é identificado pelo seu ID do processo(**PID**) e pelo ID do processo pai(**PPID**). Sendo assim, os processos podem ser categorizados em:
+
+- **Parent processes**: esses são processos que criam outros processos durante o tempo de execução.
+- **Child processes**: esses processos são criados por outros processos durante o tempo de execução.
+
+### O Processo Init
+
+O processo **init** é a mãe (ou pai) de todos os processos no sistema; é o primeiro programa executado quando o sistema Linux é inicializado; ele gerencia todos os outros processos no sistema. Ele é iniciado pelo próprio kernel, portanto, em princípio, ele não possui um processo pai.
+
+O processo **init** sempre tem o **ID** do processo **1**. Ele funciona como um pai adotivo para todos os processos órfãos.
+
+Podemos usar o comando **pidof** para encontrar o ID de um processo, por exemplo:
+
+```bash
+pidof top
+pidof chrome
+pidof bash
+pidof apache2
+```
+
+Para localizarmos o ID do processo e o ID do processo pai da **shell atual**, podemos executar:
+
+```bash
+echo $$
+echo $PPID
+```
+
+### Controlando Processos
+
+Existem diversos comandos que podem ser usados para controlar processos. São eles, por exemplo:
+
+- **ps**: lista os processos em execução no sistema
+- **kill**: envia um sinal para um ou mais processos (geralmente para "matar" um processo)
+- **jobs**: uma maneira alternativa de listar seus próprios processos
+- **bg**: coloca um processo em *background*/segundo plano
+- **fg**: colocar um processo em *foreground*/primeiro plano
+
+A maioria (se não todos) dos programas gráficos pode ser iniciada na linha de comando, podemos por exemplo iniciliazar o programa **GIMP** através do seguindo comando:
+
+```bash
+gimp
+```
+
+Observe que seu prompt não reapareceu após o lançamento do programa **GIMP**. O shell está aguardando a conclusão do programa antes que o controle retorne a você. Se você fechar a janela do GIMP, o programa GIMP será encerrado e o prompt retornará.
+
+#### Colocando um Programa em Background
+
+Agora lançaremos o programa **GIMP** novamente, mas desta vez o colocaremos em segundo plano/*background* para que o prompt retorne. Para fazer isso, executamos o **GIMP** assim:
+
+```bash
+gimp &
+```
+
+Nesse caso, o prompt retornou porque o processo foi colocado em segundo plano.
+
+Imagine então que você esqueceu de usar o símbolo "**&**" para colocar o programa em segundo plano. Você pode digitar `Ctrl + Z` e o processo será suspenso. O processo ainda existe, mas está ocioso. Para retomar o processo em segundo plano, digite o comando **bg**(abreviação de background).
+
+```bash
+gimp 
+CTRL + Z 
+bg # [2]+ gimp &
+```
+
+#### Listando Processos
+
+Agora que temos um processo em segundo plano, seria útil exibir uma lista dos processos que lançamos. Para fazer isso, podemos usar o comando **jobs** ou o comando **ps** que é mais poderoso.
+
+```bash
+jobs 
+ps
+```
+
+#### Assassinando Processos
+
+Uma maneira fundamental de controlar processos no Linux é enviando sinais para eles. Existem vários sinais que você pode enviar para um processo, para visualizar todos os sinais possíveis que podemos utilizar, digite o seguinte comando:
+
+```bash
+kill -L
+```
+
+A maioria dos sinais é para uso interno do sistema ou para programadores quando eles escrevem código. A seguir, apresentamos sinais úteis para um usuário do sistema:
+
+- **SIGHUP 1**: enviado para um processo quando seu terminal de controle está fechado.
+- **SIGINT 2**: enviado a um processo pelo seu terminal de controle quando um usuário interrompe o processo pressionando `Ctrl + C`.
+- **SIGQUIT 3**: enviado para um processo se o usuário enviar um sinal de saída/quit `Ctrl + D`.
+- **SIGKILL 9**: este sinal finaliza imediatamente (mata) um processo e o processo não realiza nenhuma operação de limpeza.
+- **SIGTERM 15**: este é um sinal de encerramento do programa (o comando **kill** enviará ele por padrão).
+- **SIGTSTP 20**: enviado a um processo pelo seu terminal de controle para solicitar que ele pare (parada do terminal); iniciado pelo usuário pressionando `Ctrl + Z`.
+
+Imagine agora que temos um programa que não responde; Como podemos resolver este problema? O comando **kill** pode nos ajudar.
+
+Faremos um experimento com o programa **GIMP**. Primeiro, precisamos identificar o processo que desejamos matar. Podemos usar **jobs** ou **ps** para esta tarefa. Caso utilizemos **jobs**, receberemos como retorno um número de trabalho. Já no **ps**, recebemos um ID do processo(PID).
+
+**jobs**:
+
+```bash
+gimp & # [2] 2495
+jobs
+# [1]+  Parado                  top
+# [2]-  Executando              gimp &
+kill %2
+```
+
+**ps**:
+
+```bash
+gimp & # [2] 2585
+ps 
+#  PID TTY          TIME CMD
+# 2585 pts/0    00:00:01 gimp
+# 2593 pts/0    00:00:00 script-fu
+# 2598 pts/0    00:00:00 ps
+# 4006 pts/0    00:00:00 bash
+# 29881 pts/0    00:00:12 top
+kill 2585
+```
+
+#### Checando Principais Processos
+
+Para verificarmos os principais processos ordenados por uso de RAM ou CPU no Linux podemos usar novamente o comando **ps**, que mostrará a lista dos principais processos ordenados pelo uso da RAM e da CPU na forma descendente (remova o [pipeline](https://en.wikipedia.org/wiki/Pipeline_(Unix)) e **head** se quiser ver a lista completa).
+
+**Ordenando por Memória**:
+
+```bash
+ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%mem | head
+```
+
+**Ordenando por CPU**:
+
+```bash
+ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%mem | head
+```
+
+## Introdução ao SystemD
+
+O **systemd** é um pacote de software que fornece uma variedade de componentes de sistema para sistemas operacionais Linux.
+
+Seu principal objetivo é unificar a configuração e o comportamento do serviço nas distribuições Linux. O principal componente do systemd é um "gerenciador de sistemas e serviços" - um sistema init usado para inicializar o [espaço do usuário](https://en.wikipedia.org/wiki/User_space) e gerenciar [processos do usuário](https://en.wikipedia.org/wiki/Process_(computing)). Ele também fornece substituições para vários [daemons](https://en.wikipedia.org/wiki/Daemon_(computing)) e utilitários, incluindo gerenciamento de dispositivos, gerenciamento de login, gerenciamento de conexões de rede e log de eventos.
+
+Systemd é controlado pelo utilitário **systemctl**, a tabela a seguir apresenta os comandos que podemos utilizar com ele:
+
+| Comando systemctl  | Descrição  |
+|---|---|
+| systemctl start name  | Inicia name (onde name é um serviço)  |
+| systemctl stop name  | Pára name  |
+| systemctl try-restart name  | Reinicia name (se já estiver executando)  |
+| systemctl restart name  | Reinicia name  |
+| systemctl reload name  | Recarrega a configuração para name  |
+| systemctl status name  | Apresenta o status atual de name  |
+| systemctl  | Exibe o status de todos os serviços atuais  |
+| systemctl enable name  | Ativa name para executar na inicialização, conforme especificado no arquivo da unidade (o arquivo para o qual o link simbólico aponta). O processo de ativar ou desativar um serviço para iniciar automaticamente na inicialização consiste em adicionar ou remover links simbólicos dentro do diretório /etc/systemd/system |
+| systemctl disable name  | Desativa name para execução na inicialização, conforme especificado no arquivo da unidade (o arquivo para o qual o link simbólico aponta)  |
+| systemctl is-enabled name  | Verifique se name (um serviço específico) está ativado no momento  |
+| systemctl –type=service  | Exibe todos os serviços e informa se eles estão ativados ou desativados |
+| systemctl poweroff  | Desliga a máquina (halt)  |
+| systemctl reboot  | Reinicia o sistema  |
+
+## Rastreando Processos com htop
+
+O [htop](https://hisham.hm/htop/) é um *[system-monitor](https://en.wikipedia.org/wiki/System_monitor)*, visualizador de processos e gerenciador de processos. 
+
+![img](https://i.ibb.co/qC1G1bW/htop.png)
+
+Ele foi desenvolvido como uma alternativa ao programa **top** do Unix. Ele mostra uma lista atualizada com frequência dos processos em execução no computador, normalmente ordenadas pela quantidade de uso da CPU. Ao contrário do top, o [htop](https://github.com/hishamhm/htop) fornece uma lista completa dos processos em execução, em vez dos principais processos que consomem recursos. O htop usa cores e fornece informações visuais sobre o status do processador, da troca e da memória. O htop também pode exibir os processos como uma árvore.
+
+## Sumário
+
+- Qualquer programa em execução ou um comando fornecido a um sistema Linux é chamado de processo
+- Um processo pode ser executado em primeiro plano/*foreground* ou em segundo plano/*background*
+- O índice de prioridade de um processo é chamado de **Nice** no Linux. Seu valor padrão é 0 e pode variar entre 20 e -19
+- Quanto menor o índice Nice, maior seria a prioridade dada a essa tarefa
+
+### Comandos Importantes
+
+| Comando  | Descrição |
+|---|---|
+| bg  | Para enviar um processo para o segundo plano |
+| fg  | Para executar um processo parado em primeiro plano  |
+| top  | Detalhes sobre todos os processos ativos |
+| ps  | Fornece o status dos processos em execução para um usuário |
+| ps PID  | Fornece o status de um processo específico  |
+| pidof  | Fornece o ID do processo(PID) |
+| kill PID  | Mata um processo de ID especificado |
+| nice  | Inicia um processo com uma determinada prioridade |
+| renice  | Altera a prioridade de um processo já em execução |
