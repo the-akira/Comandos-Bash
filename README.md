@@ -1,4 +1,4 @@
-<h1 align="center">Bash Comandos</h1>
+<h1 align="center">Comandos Bash</h1>
 
 <h1 align="center">
     <img alt="Bash" src="https://i.ibb.co/W5b899q/bash.png"> </br>
@@ -16,5 +16,7 @@ Explorando a **[command-line interface (CLI)](https://en.wikipedia.org/wiki/Comm
 - Compressão de Arquivos
 - Informações do Sistema
 - Gerenciamento de Processos
+- Instalando Softwares
+- GNU, Unix & Linux
 - Networking
 - Atalhos
