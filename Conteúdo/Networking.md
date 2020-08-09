@@ -221,7 +221,7 @@ Você pode limitar o número de pings a um valor específico e sair do mtr após
 mtr -c 4 google.com
 ```
 
-route é um utilitário de linha de comando para exibir ou manipular a tabela de roteamento de IP de um sistema Linux. É usado principalmente para configurar rotas estáticas para hosts ou redes específicas por meio de uma interface.
+**route**: É um utilitário de linha de comando para exibir ou manipular a tabela de roteamento de IP de um sistema Linux. É usado principalmente para configurar rotas estáticas para hosts ou redes específicas por meio de uma interface.
 
 Você pode visualizar a tabela de roteamento IP do Kernel com o comando:
 
