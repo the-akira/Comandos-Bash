@@ -1,4 +1,4 @@
-# Compactação e Arquivamento de Arquivos
+# Compressão e Arquivamento de Arquivos
 
 Às vezes é útil armazenar um grupo de arquivos em um arquivo para que eles possam ser copiados, facilmente transferidos para outro diretório ou mesmo transferidos para outro computador. Às vezes, também é útil compactar arquivos em um arquivo para que eles usem menos espaço em disco e baixem mais rapidamente.
 
