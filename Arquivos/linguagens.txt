@@ -1,0 +1,12 @@
+Bash
+Haskell
+Perl
+Python
+Java
+Ruby
+Lisp
+Go
+C++
+C
+PHP
+Javascript

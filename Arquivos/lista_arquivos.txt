@@ -1,0 +1,6 @@
+alimentos.txt
+cientistas.txt
+hello.txt
+linguagens.txt
+lista_arquivos.txt
+livros.csv
