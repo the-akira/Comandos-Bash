@@ -294,3 +294,279 @@ cat livros.csv | grep "computer" | cut -d, -f 4
 ```
 
 Nesse caso estamos apenas buscando os gêneros de livro que contenham algo relacionado com **computer**.
+
+### paste
+
+O comando **paste** é usado para juntar arquivos horizontalmente (*parallel merging*) gerando linhas que consistem em linhas de cada arquivo especificado, separadas por `[tab]` como delimitador, para o *standard output*.
+
+Podemos por exemplo combinar os arquivos [cientistas.txt](https://github.com/the-akira/Comandos-Bash/blob/master/Arquivos/cientistas.txt) e [alimentos.txt](https://github.com/the-akira/Comandos-Bash/blob/master/Arquivos/alimentos.txt):
+
+```bash
+paste cientistas.txt alimentos.txt
+```
+
+A opção **-d** (*delimiter*) usa o delimitador de `[tab]` por padrão para unir os arquivos. O delimitador pode ser alterado para qualquer outro caractere usando a opção **-d**. Se mais de um caractere for especificado como delimitador, **paste** o usará de forma circular para cada separação de linha de arquivo.
+
+```bash
+paste -d "|" cientistas.txt alimentos.txt
+```
+
+Podemos mesclar os arquivos de maneira sequencial usando a opção **-s** (serial). Ele lê todas as linhas de um único arquivo e mescla todas essas linhas em uma única linha com cada linha separada por `[tab]`. E essas linhas únicas são separadas por nova linha.
+
+```bash
+paste -s cientistas.txt
+```
+
+Podemos por exemplo alterar o delimitador para `-`:
+
+```bash
+paste -s -d"-" cientistas.txt
+```
+
+### sort
+
+O comando **sort** é útil para ordenar linhas.
+
+Ele é usado para ordenar um arquivo, organizando os registros em uma ordem específica. Por padrão, o comando sort ordena o arquivo assumindo que o conteúdo é ASCII. Usando opções no comando **sort** ele também pode ser usado para ordenar numericamente.
+
+Podemos por exemplo ordenar em ordem alfabética as linguagens de programação do arquivo [linguagens.txt](https://github.com/the-akira/Comandos-Bash/blob/master/Arquivos/linguagens.txt):
+
+```bash
+sort linguagens.txt
+```
+
+Podemos até mesmo ordenar em ordem reversa:
+
+```bash
+sort -r linguagens.txt
+```
+
+Para ordenarmos um arquivo numericamente usamos opção **-n**. Esta opção é usada para ordenar o arquivo com dados numéricos presentes nele. Podemos por exemplo ordenar o arquivo [numeros.txt](https://github.com/the-akira/Comandos-Bash/blob/master/Arquivos/numeros.txt):
+
+```bash
+sort -n numeros.txt
+```
+
+E até mesmo combinar com a opção **-r** para obtermos a ordem reversa:
+
+```bash
+sort -nr numeros.txt
+```
+
+A opção **-c** é usada para verificar se o arquivo fornecido já está ordenado ou não. Ele imprimirá no *standard output* se houver linhas fora de ordem. A ferramenta **sort** pode ser usada para entender se um arquivo está classificado e quais linhas estão fora de ordem:
+
+```bash
+sort -c numeros.txt 
+sort -c cientistas.txt
+```
+
+Para ordenar e remover duplicatas, podemos usar a opção **-u**. Esse comando imprimirá uma lista ordenada no *standard output* e removerá duplicatas:
+
+```bash
+sort -u alimentos.txt
+```
+
+O comando **sort** é muito útil para arquivos `.csv` e nos fornece a capacidade de ordenar um csv inteiro com base em uma coluna específica.
+
+Neste exemplo estamos ordenando os livros pelo seu **Title**/Título
+
+```bash
+sort -t, -k1 livros.csv
+```
+
+Podemos ainda combinar com a opção **-r** para ordenarmos em ordem reversa:
+
+```bash
+sort -t, -k1r livros.csv
+```
+
+A opção **-t** é para especificar a vírgula como nosso delimitador. Na maioria das vezes, espaços ou `[tab]` são assumidos. Além disso, a opção **-k** é para especificar a coluna que desejamos.
+
+### uniq
+
+O comando uniq (*unique*) é outra ferramenta útil para analisar texto.
+
+Imagine que temos um arquivo [alimentos.txt](https://github.com/the-akira/Comandos-Bash/blob/master/Arquivos/alimentos.txt) com muitas duplicatas e desejamos remover essas duplicatas:
+
+```bash
+uniq alimentos.txt
+```
+
+Podemos contar quantas ocorrências há de uma linha:
+
+```bash
+uniq -c alimentos.txt
+```
+
+Somos capazes também de buscar apenas os valores únicos:
+
+```bash
+uniq -u alimentos.txt
+```
+
+Ou apenas os valores duplicados:
+
+```bash
+uniq -d alimentos.txt
+```
+
+Como podemos perceber, o **uniq** não detecta linhas duplicadas, a menos que sejam adjacentes, por isso o alimento Banana continuou presente em nosso *output*.
+
+Para superarmos essa limitação do uniq, podemos usar sort em combinação com uniq:
+
+```bash
+sort alimentos.txt | uniq
+```
+
+Dessa vez obteremos apenas valores únicos.
+
+### tr (Translate)
+
+**tr** (translate) é um utilitário de linha de comando útil que traduz e/ou exclui caracteres da entrada **stdin** e escreve em **stdout**. É um programa útil para manipular texto na linha de comando.
+
+Um caso de uso simples do comando tr é alterar todas as letras minúsculas no texto para maiúsculas e vice-versa, conforme mostrado abaixo.
+
+Minúscula para Maiúscula:
+
+```bash
+cat alimentos.txt | tr [:lower:] [:upper:]
+```
+
+Maiúscula para Minúscula:
+
+```bash
+cat alimentos.txt | tr A-Z a-z
+```
+
+Outro recurso útil é a opção **-d** para excluir caracteres, por exemplo, para remover os espaços nos nomes dos cientistas usamos o seguinte comando:
+
+```bash
+cat cientistas.txt | tr -d " "
+```
+
+Se houver caracteres repetidos em uma sequência (por exemplo, espaços duplos) no texto que estamos processando, podemos usar a opção **-s** para comprimir os caracteres, deixando apenas uma ocorrência deles.
+
+Imagine que temos a seguinte lista de domínios no arquivo [dominios.txt](https://github.com/the-akira/Comandos-Bash/blob/master/Arquivos/dominios.txt):
+
+```
+www..google....com
+www.tibia..com
+www...w3schools....com
+```
+
+Para eliminarmos o excesso de pontos, podemos usar o comando:
+
+```bash
+cat dominios.txt | tr -s '.'
+```
+
+A opção **-c** diz ao **tr** para usar o complemento no determinado **SET**. Neste exemplo, queremos deletar todas as letras e apenas deixar o UID.
+
+```bash
+echo "Meu UID é = $UID" | tr -cd "[:digit:]\n"
+```
+
+Aqui está um exemplo de como quebrar uma única linha de palavras (frase) em várias linhas, onde cada palavra aparece em uma linha separada.
+
+```bash
+echo "O Rato Roeu a Roupa do Rei de Roma" | tr " " "\n"
+```
+
+Também podemos traduzir várias linhas de palavras em uma única frase:
+
+```bash
+tr "\n" " " < cientistas.txt
+```
+
+Também é possível traduzir apenas um único caractere, por exemplo, um `=` em um caractere `>`:
+
+```bash
+echo "Blog = akiradev.netlify.app" | tr "=" ">"
+```
+
+Outra característica do **tr** são todas as variáveis `[:class:]` embutidas à nossa disposição:
+
+```bash
+[:alnum:] todas as letras e dígitos
+[:alpha:] todas as letras
+[:blank:] todos os espaços horizontais
+[:cntrl:] todos os caracteres de controle
+[:digit:] todos os dígitos
+[:graph:] todos os caracteres imprimíveis, não incluindo espaço
+[:lower:] todas as letras minúsculas
+[:print:] todos os caracteres imprimíveis, incluindo espaço
+[:punct:] todos os caracteres de pontuação
+[:space:] todos os espaços verticais e horizontais
+[:upper:] todas as letras maiúsculas
+[:xdigit:] todos os dígitos hexadecimais
+```
+
+É possível encadear vários deles para compor programas poderosos. A seguir está um programa básico de contagem de palavras que podemos usar para verificar se há uso excessivo em nos arquivos READMEs.
+
+```bash
+cat README.md | tr "[:punct:][:space:]" "\n" | tr "[:upper:]" "[:lower:]" | grep . | sort | uniq -c | sort -nr
+```
+
+Podemos também converter um arquivo delimitado por vírgulas em `|`:
+
+```bash
+cat livros.csv | tr "," "|"
+```
+
+Caso o arquivo esteja delimitado por `[tab]` e desejamos colocar vírgulas:
+
+```bash
+cat livros.csv | tr "\\t" ","
+```
+
+### wc
+
+O comando wc (*word count*) imprime quantas **novas linhas**, **palavras** e **bytes** estão no arquivo.
+
+Por exemplo
+
+```bash
+wc cientistas.txt
+```
+
+Nos retorna `9  21 160 cientistas.txt`, indicando que temos 9 novas linhas, 21 palavras no total e 160 bytes armazenados.
+
+A opção **-l** fornecerá apenas a contagem de linhas:
+
+```bash
+wc -l cientistas.txt
+```
+
+Que nos retornará `9 cientistas.txt`.
+
+Para contarmos apenas as palavras podemos usar a opção **-w**:
+
+```bash
+echo "Javascript Bash Python Lisp" | wc -w
+```
+
+Nos será retornado `4`, uma vez que temos apenas 4 palavras.
+
+Já a opção **-c** nos retorna apenas o número de bytes:
+
+```bash
+wc -c cientistas.txt
+```
+
+### split
+
+O comando **split** no Linux é usado para dividir arquivos grandes em arquivos menores. Ele divide os arquivos em 1000 linhas por arquivo (por padrão) e ainda permite que os usuários alterem o número de linhas conforme a necessidade.
+
+Vamos dividir um arquivo `.csv` em **novo_arquivo** a cada 500 linhas:
+
+```bash
+split -l 500 arquivo.csv novo_arquivo_
+```
+
+Também podemos executar o comando split no modo verbose usando a opção **--verbose**. Ele fornecerá uma mensagem de diagnóstico cada vez que um novo arquivo dividido for criado.
+
+```bash
+split -l 500 arquivo.csv novo_arquivo_ --verbose
+```
+
+### grep
