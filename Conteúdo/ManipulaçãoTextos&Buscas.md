@@ -570,3 +570,235 @@ split -l 500 arquivo.csv novo_arquivo_ --verbose
 ```
 
 ### grep
+
+*Global search for a regular expression and print* ou **grep** é um comando muito conhecido no universo Unix e por uma boa razão.
+
+O filtro grep procura um arquivo por um determinado padrão de caracteres e exibe todas as linhas que contêm esse padrão. O padrão pesquisado no arquivo é conhecido como **[expressão regular](https://en.wikipedia.org/wiki/Regular_expression)**.
+
+Vamos utilizar nosso arquivo `alimentos.txt` como exemplo:
+
+```bash
+grep Banana alimentos.txt
+```
+
+Como podemos observar, **grep** encontrou a palavra Banana duas vezes em nosso arquivo.
+
+Você também pode executar grep em padrões que não diferenciam maiúsculas de minúsculas (*case insensitive*) com a opção **-i**:
+
+```bash
+grep -i alf alimentos.txt
+```
+
+Como podemos ver, mesmo fornecendo apenas `alf`, **grep** foi capaz de encontrar a palavra **Alface** em nosso arquivo.
+
+Podemos ainda combinar o **grep** com outros comandos, nesse caso estamos listando apenas os arquivos que terminam com `.csv`:
+
+```bash
+ls | grep ".csv$"
+```
+
+Exibindo a contagem do número de correspondências: Podemos encontrar o número de linhas que correspondem à string/padrão fornecido com a opção **-c**:
+
+```bash
+grep -c "Tomate" alimentos.txt
+```
+
+Nos será retornado o valor `2`, uma vez que temos dois **Tomates** em nosso arquivo.
+
+Em nosso diretório [Arquivos](https://github.com/the-akira/Comandos-Bash/tree/master/Arquivos) podemos utilizar o **grep** para exibir os nomes de arquivo que correspondem ao padrão: Podemos apenas exibir os arquivos que contêm a string/padrão fornecido.
+
+```bash
+grep -l "Python" *
+```
+
+Nos será retornado `linguagens.txt`, uma vez que só esse arquivo contém o padrão que fornecemos.
+
+Por padrão, grep corresponde à string/padrão fornecida, mesmo se for encontrada como uma substring em um arquivo. A opção **-w** de grep faz com que ele corresponda apenas a palavras inteiras.
+
+```bash
+grep -w "Java" linguagens.txt
+```
+
+Esse comando nos retornará apenas **Java**.
+
+Por padrão, grep exibe a linha inteira que contém a string correspondente. Podemos fazer com que o grep exiba apenas a string correspondente usando a opção **-o**.
+
+```bash
+grep -o "Albert" cientistas.txt
+``` 
+
+Neste caso nos será retornado apenas **Albert**.
+
+Para mostrar o número da linha do arquivo com a linha correspondida podemos usar a opção **-n**:
+
+```bash
+grep -n "Python" linguagens.txt
+```
+
+Nos será retornado `4:Python`, uma vez que a linguagem Python está localizada na 4ª linha do arquivo.
+
+Invertendo a correspondência de padrão: Podemos exibir as linhas que não correspondem ao padrão/string de pesquisa especificado usando a opção **-v**:
+
+```bash
+grep -v "C" linguagens.txt
+```
+
+Perceba que as linguagens **C** e **C++** serão eliminadas.
+
+O padrão de expressão regular `^` especifica o início de uma linha e pode ser usado no **grep** para corresponder às linhas que começam com a string ou padrão fornecido.
+
+```bash
+grep "^P" linguagens.txt
+```
+
+Nos será retornado apenas as linguagens que começam com a letra **P**.
+
+O padrão de expressão `$` regular especifica o fim de uma linha e pode ser usado no **grep** para combinar as linhas que terminam com a string ou padrão fornecido.
+
+```bash
+grep "l$" linguagens.txt
+```
+
+Nos será retornado apenas as linguagens que terminam com a letra **l**.
+
+Com a opção **-e** podemos definir uma expressão. É possível usar esta opção múltiplas vezes:
+
+```bash
+grep -e "Albert" -e "Max" cientistas.txt
+```
+
+Nos será retornado **Albert Einstein** e **Max Planck**.
+
+Outra opção muito interessante é a **-f** que nos permite receber os padrões de um arquivo, um por linha:
+
+```bash
+grep -f padrao.txt arquivo.txt
+```
+
+## Comandos de Pesquisa do Linux
+
+O Linux oferece algumas maneiras diferentes de pesquisarmos, e cada uma tem seus méritos. Veremos como usar `find`, `locate`, `which`, `whereis` e `apropos`. Cada um se destaca em tarefas diferentes.
+
+### find
+
+**find** é um comando para filtrar recursivamente objetos no sistema de arquivos com base em um mecanismo condicional simples. Usamos find para pesquisar um arquivo ou diretório em nosso sistema de arquivos.
+
+A maneira mais simples de usar find é simplesmente digitar **find** e apertar enter.
+
+```bash
+find 
+```
+
+Usado dessa maneira, **find** se comporta como **ls**, mas lista todos os arquivos no diretório atual e aqueles em subdiretórios também.
+
+Para o find buscar a partir do diretório **root**, podemos utilizar este comando:
+
+```bash
+find /
+```
+
+Para o find buscar a partir de nosso diretório **home**:
+
+```bash
+find ~
+```
+
+Para que o find possa se tornar mais poderoso devemos fornecer a ele algo para pesquisar. Podemos fornecer nomes de arquivo ou padrões de arquivo. Os padrões usam *wildcards*, onde `*` significa qualquer sequência de caracteres e `?` significa qualquer caractere único.
+
+Os padrões devem ser citados entre `""` para funcionar corretamente, por exemplo
+
+```
+find . -name "*.txt"
+```
+
+Com este comando, vamos procurar na pasta atual por arquivos que correspondam ao padrão `“*.txt”`. Isso significa qualquer nome de arquivo que tenha uma extensão de arquivo `.txt`. Podemos usar a opção **-name** para informar que estamos passando um nome de arquivo ou um padrão de nome de arquivo.
+
+```bash
+find . -name "*.txt"
+```
+
+Se você souber o nome do arquivo que deseja localizar, pode passar esse nome para localizar em vez de um padrão. Você não precisa envolver o nome do arquivo entre aspas se não houver *wildcards* nele, embora seja uma boa prática fazer isso. 
+
+```bash
+find . -name 'Cientistas.txt'
+```
+
+Esse comando não nos retornou nada, isso porque o nome do arquivo na verdade é `cientistas.txt`. Com a opção **-iname** (ignore case name) podemos dizer ao **find** que faça a busca independente de letras maiúsculas ou minúsculas.
+
+```bash
+find . -iname 'Cientistas.txt'
+```
+
+Dessa vez ele será capaz de encontrar o arquivo `cientistas.txt`.
+
+Uma propriedade excelente sobre o find é a maneira como ele pesquisa recursivamente nos subdiretórios. Vamos pesquisar por qualquer arquivo que comece com “**li**”:
+
+```bash
+find . -name "li*.*"
+```
+
+A opção **-path** faz com que find procure por diretórios. Vamos procurar um diretório cujo nome não conseguimos lembrar, mas sabemos que contém **"Image"**.
+
+```bash
+find . -path './*Image*'
+```
+
+**find** pode procurar arquivos que possuem atributos que correspondem à dica de pesquisa. Por exemplo, podemos procurar por arquivos que estão vazios usando a opção **-empty**:
+
+```bash
+find . -empty
+```
+
+Todos os arquivos de comprimento zero byte serão listados nos resultados da pesquisa.
+
+A opção **-executable** encontrará qualquer arquivo que possa ser executado, como por exemplo um programa ou um script.
+
+```bash
+find . -executable
+```
+
+A opção **-type** permite indicarmos o tipo de objeto que estamos procurando. Forneceremos o indicador de tipo "**f**" como um parâmetro para a opção **-type** porque desejamos que **find** pesquise apenas por arquivos.
+
+```bash
+find . -executable -type f
+```
+
+Também podemos solicitar que o find inclua apenas diretórios nos resultados. Para listar todos os diretórios, podemos usar a opção **-type** com o indicador de tipo “**d**”.
+
+```bash
+find . -type d
+```
+
+O **find** nos permite encontrar arquivos por tempo de modificação, em outras palavras, o comando find contém a capacidade de filtrar uma hierarquia de diretórios com base em quando o arquivo foi modificado pela última vez:
+
+```bash
+find . -name "*txt" -mtime -2
+```
+
+O comando retorna uma lista de todos os arquivos em nosso diretório atual que terminam com os caracteres `.txt` e foram modificados nos últimos 2 dias.
+
+A opção **-delete** ao final de uma expressão de correspondência indica para excluir todos os arquivos correspondentes. Use esta opção quando tiver certeza de que os resultados correspondem apenas aos arquivos que deseja excluir.
+
+No exemplo a seguir, **find** localiza todos os arquivos na hierarquia, começando no diretório atual e retornando totalmente para a árvore de diretórios. Neste exemplo, find apagará todos os arquivos que terminam com os caracteres `.bat`:
+
+```bash
+find . -name "*.bat" -delete
+```
+
+#### Otimizando o find
+
+**find** otimiza sua estratégia de filtragem para aumentar o desempenho. Três níveis de otimização selecionáveis pelo usuário são especificados como `-O1`, `-O2` e `-O3`. A otimização `-O1` é o padrão e força a localização para filtrar com base no nome do arquivo antes de executar todos os outros testes.
+
+- 01: Filtro (padrão) baseado no nome do arquivo primeiro.
+- 02: Primeiro o nome do arquivo, depois o tipo de arquivo.
+- 03: Permitir find reordenar automaticamente a pesquisa com base no uso eficiente de recursos e probabilidade de sucesso
+
+#### Find com Grep para encontrarmos Arquivos baseado em Conteúdo
+
+O comando find só é capaz de filtrar a hierarquia de diretório com base no nome de um arquivo e metadados. Se precisarmos pesquisar com base no conteúdo do arquivo, podemos usar a ferramenta **grep**. Vamos considerar o seguinte exemplo:
+
+```bash
+find . -type f -exec grep "Albert" '{}' \; -print
+```
+
+Essa pesquisa busca cada objeto na hierarquia de diretório atual `.` que é um arquivo `-type f` e, em seguida, executa o comando `grep "Albert"` para cada arquivo que satisfaça as condições. Os arquivos correspondentes são impressos na tela `-print`. As chaves `{}` são um espaço reservado para os resultados de correspondência de **find**. O comando **-exec** é encerrado com um ponto e vírgula `;`, que deve ser escapado `\;` para evitar a interpretação pelo shell.
