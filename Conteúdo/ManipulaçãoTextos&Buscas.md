@@ -904,6 +904,49 @@ A opção **-B** (binary list) restringe a pesquisa de arquivos executáveis à 
 whereis -B /bin/ -f nc
 ```
 
+### whatis
+
+O comando **whatis** que já vimos anteriormente é usado para pesquisar rapidamente as páginas **man** (manual). Ele fornece descrições resumidas de uma linha do termo que solicitamos para pesquisar.
+
+Começaremos com um exemplo simples. Vamos perguntar o que o termo "**man**" significa.
+
+```bash
+whatis man
+```
+
+o **whatis** encontra duas descrições correspondentes. Ele imprime uma breve descrição para cada correspondência. Também lista a seção numerada do manual que contém cada descrição completa:
+
+```
+man (1)              - uma interface para os manuais de referência on-line
+man (7)              - macros to format man pages
+```
+
+Para abrir o manual na seção que descreve o comando man, usamos o seguinte comando:
+
+```bash
+man 1 man
+```
+
+Para abrir o manual na seção 7, na página que discute os macros que podemos usar para gerar páginas de manual, usamos este comando:
+
+```bash
+man 7 man
+```
+
+A opção **-s** (section) é usada para limitar a pesquisa às seções do manual nas quais você está interessado. Para ter a pesquisa whatis restrita à seção 7 do manual, usamos o seguinte comando.
+
+```bash
+whatis -s "7" man
+```
+
+Os resultados correspondentes serão listados na janela de nosso terminal.
+
+É possível usar *wildcards* com whatis. Devemos usar a opção **-w** (wildcard) para fazer isso:
+
+```bash
+whatis -w php*
+```
+
 ### apropos
 
 O comando **apropos** é semelhante ao **whatis**, mas tem alguns acessórios a mais. Ele pesquisa os títulos das páginas do manual e as descrições de uma linha à procura do termo de pesquisa. Ele lista as descrições da página do manual correspondentes na janela do terminal.

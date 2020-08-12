@@ -354,6 +354,8 @@ more /proc/cpuinfo
 
 Para navegarmos no arquivo com **more** podemos usar as seguintes teclas: `[enter]` para irmos para a próxima linha, `[barra de espaço]` para a próxima página, `b` para retornarmos uma página, `q` para sairmos do arquivo, `h` para apresentar o texto de ajuda.
 
+### Obtendo Informação
+
 Aprendemos um pouco sobre diversos comandos até então, se estivermos em dúvida sobre o que um comando faz, podemos usar o comando **whatis**. O comando whatis fornece uma breve descrição dos programas de linha de comando.
 
 ```bash
