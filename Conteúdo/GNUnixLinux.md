@@ -1,5 +1,7 @@
 # GNU, Unix & Linux
 
+![img](https://i.ibb.co/KXGYgBs/Gn-Unix-Linux.png)
+
 Para compreendermos como o Linux surgiu, devemos retornar ao início de 1969, quando [Ken Thompson](https://en.wikipedia.org/wiki/Ken_Thompson) e [Dennis Ritchie](https://en.wikipedia.org/wiki/Dennis_Ritchie), do [Bell Laboratories](https://en.wikipedia.org/wiki/Bell_Labs), desenvolveram o sistema operacional [Unix](https://en.wikipedia.org/wiki/Unix). Posteriormente, foi reescrito em [C](https://en.wikipedia.org/wiki/C_(programming_language)) para torná-lo mais portátil e, eventualmente, se tornou um sistema operacional amplamente utilizado.
 
 ## Unix

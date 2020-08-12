@@ -17,7 +17,7 @@ Explorando a **[command-line interface (CLI)](https://en.wikipedia.org/wiki/Comm
 - [Informações do Sistema](https://github.com/the-akira/Comandos-Bash/blob/master/Conte%C3%BAdo/Informa%C3%A7%C3%B5es.md)
 - [Gerenciamento de Processos](https://github.com/the-akira/Comandos-Bash/blob/master/Conte%C3%BAdo/Processos.md)
 - [Instalando Softwares](https://github.com/the-akira/Comandos-Bash/blob/master/Conte%C3%BAdo/Softwares.md)
-- GNU, Unix & Linux
+- [GNU, Unix & Linux](https://github.com/the-akira/Comandos-Bash/blob/master/Conte%C3%BAdo/GNUnixLinux.md)
 - [Networking](https://github.com/the-akira/Comandos-Bash/blob/master/Conte%C3%BAdo/Networking.md)
 - [Atalhos](https://github.com/the-akira/Comandos-Bash/blob/master/Conte%C3%BAdo/Atalhos.md)
 - [Referências](https://github.com/the-akira/Comandos-Bash/blob/master/Conte%C3%BAdo/Refer%C3%AAncias.md)
