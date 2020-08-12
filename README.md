@@ -20,3 +20,4 @@ Explorando a **[command-line interface (CLI)](https://en.wikipedia.org/wiki/Comm
 - GNU, Unix & Linux
 - [Networking](https://github.com/the-akira/Comandos-Bash/blob/master/Conte%C3%BAdo/Networking.md)
 - [Atalhos](https://github.com/the-akira/Comandos-Bash/blob/master/Conte%C3%BAdo/Atalhos.md)
+- [Referências](https://github.com/the-akira/Comandos-Bash/blob/master/Conte%C3%BAdo/Refer%C3%AAncias.md)
