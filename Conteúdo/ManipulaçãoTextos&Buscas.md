@@ -707,7 +707,7 @@ Para que o find possa se tornar mais poderoso devemos fornecer a ele algo para p
 
 Os padrões devem ser citados entre `""` para funcionar corretamente, por exemplo
 
-```
+```bash
 find . -name "*.txt"
 ```
 
@@ -802,3 +802,136 @@ find . -type f -exec grep "Albert" '{}' \; -print
 ```
 
 Essa pesquisa busca cada objeto na hierarquia de diretório atual `.` que é um arquivo `-type f` e, em seguida, executa o comando `grep "Albert"` para cada arquivo que satisfaça as condições. Os arquivos correspondentes são impressos na tela `-print`. As chaves `{}` são um espaço reservado para os resultados de correspondência de **find**. O comando **-exec** é encerrado com um ponto e vírgula `;`, que deve ser escapado `\;` para evitar a interpretação pelo shell.
+
+### locate
+
+O Linux, como quase qualquer outro sistema operacional, utiliza vários mecanismos para responder às consultas de pesquisa dos usuários. Dois dos utilitários de pesquisa de arquivos mais populares acessíveis aos usuários são chamados de **find** e **locate**.
+
+O programa **locate** funciona melhor e mais rápido do que sua contraparte de **find**, porque em vez de pesquisar o sistema de arquivos quando uma pesquisa de arquivo é iniciada - algo que **find** faz - o **locate** examina um banco de dados. Este banco de dados contém bits e partes de arquivos e seus caminhos correspondentes em seu sistema.
+
+Para o comando **locate** poder procurar um arquivo é muito fácil e direto. Tudo que precisamos fazer é executar:
+
+```bash
+locate merge_sort.py
+```
+
+Podemos limitar os retornos de pesquisa a um número escolhido para evitar redundância com os resultados de pesquisa, para isso podemos usar a opção **-n**.
+
+Se desejarmos apenas 10 resultados de nossas consultas, podemos digitar o seguinte comando:
+
+```bash
+locate .html -n 10
+```
+
+Se desejarmos apenas saber o número de arquivos correspondentes e não precisamos saber como eles são chamados ou onde estão em nosso disco rígido, usamos a opção **-c** (*count*).
+
+```bash
+locate -c .html
+locate -c .py 
+```
+
+Por padrão, o **locate** é configurado para processar consultas diferenciando maiúsculas de minúsculas, o que significa que `TEXTO.TXT` irá apontar para um resultado diferente de `texto.txt`.
+
+Para que o comando locate ignore a distinção entre maiúsculas e minúsculas e mostre os resultados de consultas em maiúsculas e minúsculas, podemos inserir a opção **-i** em nossos comandos.
+
+```bash
+locate -i *text.txt*
+```
+
+Uma vez que o comando **locate** depende de um banco de dados chamado **mlocate**. O referido banco de dados precisa ser atualizado regularmente para que o utilitário de comando funcione eficientemente.
+
+Para atualizar o banco de dados **mlocate**, usamos um utilitário chamado **updatedb**. Deve-se notar que precisaremos de privilégios de superusuário para este comando funcionar corretamente.
+
+```bash
+sudo updatedb
+```
+
+Se estivermos em dúvida quanto ao status atual de nosso `mlocate.db`, podemos visualizar facilmente as estatísticas do banco de dados de localização usando a opção **-S**.
+
+```bash
+locate -S
+```
+
+### which
+
+O comando **which** pesquisa os diretórios em seu caminho e tenta localizar o comando que você está procurando. Ele permite que você determine qual versão de um programa ou comando será executada quando você digitar seu nome na linha de comando.
+
+Imagine que temos um programa chamado **nmap**. Sabemos que está instalado no computador, mas não sabemos onde está localizado. Ele deve estar em algum caminho, porque quando digitamos seu nome, ele é executado. Podemos usar **which** para localizá-lo com este comando:
+
+```bash
+which nmap 
+```
+
+Nos será reportado que o programa está localizado em `/usr/bin/nmap`
+
+Podemos verificar se há outras cópias do programa em outros locais do caminho usando a opção **-a** (all).
+
+```bash
+which -a python
+```
+
+### whereis
+
+O comando **whereis** é semelhante ao comando which, mas é mais informativo.
+
+Além da localização do comando ou arquivo de programa, whereis também relata onde as páginas man (manuais) e os arquivos de código-fonte estão localizados. Na maioria dos casos, os arquivos de código-fonte não estarão em seu computador, mas se estiverem, o whereis fará um relatório sobre eles.
+
+O executável binário, as páginas do manual e o código-fonte são freqüentemente referidos como o “pacote” desse comando. Se quisermos saber onde os vários componentes do pacote para o comando **locate** estão localizados podemos usar o comando:
+
+```bash
+whereis locate
+```
+
+Para restringir os resultados para mostrar apenas a localização do binário usamos a opção **-b** (binary).
+
+```bash
+whereis -b locate
+```
+
+Para restringir a pesquisa para reportar apenas as páginas de manual, usamos a opção **-m** (manual). Para restringir a pesquisa para relatar apenas os arquivos de código-fonte, usamos a opção **-s** (source).
+
+Para vermos os locais pelo qual o whereis pesquisa, usamos a opção **-l** (locations).
+
+```bash
+whereis -l
+```
+
+Agora que sabemos os locais em que ele fará a pesquisa, podemos, se desejarmos, restringir a pesquisa a um determinado local ou grupo de locais.
+
+A opção **-B** (binary list) restringe a pesquisa de arquivos executáveis à lista de caminhos fornecida na linha de comando. Você deve fornecer pelo menos um local para o whereis pesquisar. A opção **-f** (file) é usada para sinalizar o fim do localização, por fim informamos o início do nome do arquivo.
+
+```bash
+whereis -B /bin/ -f nc
+```
+
+### apropos
+
+O comando **apropos** é semelhante ao **whatis**, mas tem alguns acessórios a mais. Ele pesquisa os títulos das páginas do manual e as descrições de uma linha à procura do termo de pesquisa. Ele lista as descrições da página do manual correspondentes na janela do terminal.
+
+A palavra apropos significa “relacionado a”, e o comando apropos recebe seu nome disso. Para pesquisar qualquer coisa relacionada ao comando de **groups**, podemos usar este comando:
+
+```bash
+apropos groups
+```
+
+Podemos usar mais de um termo de pesquisa na linha de comando. apropos irá pesquisar por páginas de manual que contenham qualquer um dos termos de pesquisa.
+
+```bash
+apropos nmap ncat
+```
+
+apropos retornará páginas de manual que contêm o termo de pesquisa, mesmo se o termo estiver no meio de outra palavra. Para fazer o apropos retornar apenas correspondências exatas para o termo de pesquisa, usamos a opção **-e** (exact).
+
+```bash
+apropos -e grep
+```
+
+Como vimos anteriormente, se fornecermos mais de um termo de pesquisa, apropos pesquisará páginas de manual que contenham qualquer um dos termos de pesquisa. Podemos mudar esse comportamento usando a opção **-a** (and). Isso torna apropriado selecionar apenas correspondências que contenham todos os termos de pesquisa.
+
+Por exemplo:
+
+```bash
+apropos -a crontab cron
+```
+
+Neste caso, os resultados são limitados apenas àqueles que contêm ambos os termos de pesquisa.

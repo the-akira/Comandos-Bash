@@ -1,7 +1,10 @@
 # Referências
 
+- [TecMint](https://www.tecmint.com/)
+- [How-To Geek](https://www.howtogeek.com/)
 - [LinuxCommand](http://www.linuxcommand.org/index.php)
 - [Linux Journey](https://linuxjourney.com/)
+- [GeeksforGeeks](https://www.geeksforgeeks.org/)
 - [The Unix Shell](https://swcarpentry.github.io/shell-novice/reference/)
 - [Linux Commands](https://i.pinimg.com/originals/dd/ea/4a/ddea4a4f7a593abcd4bb228b92b0a298.png)
 - [Bash Cheat Sheet](https://gist.github.com/LeCoupa/122b12050f5fb267e75f)
