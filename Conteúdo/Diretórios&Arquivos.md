@@ -135,6 +135,89 @@ drwxrwxr-x  2 akira akira 4096 jul 30 05:04 Imagens
 
 Em breve veremos mais detalhes sobre usuários e permissões.
 
+**tree** é um pequeno programa de linha de comando, cross-platform, usado para listar ou exibir recursivamente o conteúdo de um diretório em um formato semelhante a uma árvore. Ele produz os caminhos de diretório e arquivos em cada subdiretório e um resumo de um número total de subdiretórios e arquivos.
+
+O programa tree está disponível em Unix e sistemas semelhantes ao Unix, como Linux, bem como DOS, Windows e muitos outros sistemas operacionais. Ele apresenta várias opções para manipulação de *output*, desde opções de arquivo, opções de classificação, até opções de gráficos e suporte para *output* em formatos XML, JSON e HTML.
+
+Para listar o conteúdo do diretório em um formato semelhante a uma árvore, navegamos até o diretório desejado e executamos o comando tree sem quaisquer opções ou argumentos, Devemos lembrar de invocar sudo para executar a árvore em um diretório que requer permissões de acesso do usuário root.
+
+```bash
+tree  
+sudo tree
+```
+
+Ele exibirá o conteúdo do *working directory* recursivamente, mostrando subdiretórios e arquivos, e um resumo do número total de subdiretórios e arquivos. Podemos ativar a impressão de arquivos ocultos usando a opção **-a**.
+
+```bash 
+sudo tree -a 
+```
+
+Para listar o conteúdo do diretório com o prefixo do caminho completo para cada subdiretório e arquivo, usamos a opção **-f**.
+
+```bash
+sudo tree -f
+```
+
+Podemos também instruir o tree a imprimir apenas os subdiretórios, sem os arquivos neles, usando a opção **-d**. Se usado junto com a opção **-f**, a árvore imprimirá o caminho completo do diretório.
+
+```bash 
+sudo tree -df
+```
+
+É possível especificar a profundidade máxima de exibição da árvore de diretórios usando a opção **-L**. Por exemplo, se quisermos uma profundidade de 2:
+
+```bash
+sudo tree -f -L 2
+```
+
+Para exibirmos apenas os arquivos que correspondem ao padrão *wildcard*, usamos a opção **-P** e especificamos o padrão. Neste exemplo, o comando listará apenas os arquivos que correspondem a `linux*`, arquivos como: `linux-filesystem 2.png`, `linux-filesystem.png`, `linux_layers.png`, serão listados.
+
+```bash
+tree -f -P linux*
+```
+
+Podemos exibir todos os arquivos Python que terminam com a extensão `.py`:
+
+```bash
+tree -f -P *.py
+```
+
+É possível dizer ao **tree** para remover diretórios vazios do *output* adicionando a opção **--prune**:
+
+```bash
+sudo tree -f --prune
+```
+
+A opção **-p** é capaz de imprimir o tipo de arquivo e as permissões para cada arquivo de maneira semelhante ao comando `ls -l`.
+
+```bash
+sudo tree -f -p 
+```
+
+Podemos ainda usar a opção **-u** para imprimir o nome de usuário (ou UID se nenhum nome de usuário estiver disponível) e a opção **-g** que imprime o nome do grupo (ou GID se nenhum nome de grupo estiver disponível). Podemos combinar as opções **-p**, **-u** e **-g**:
+
+```bash
+tree -f -pug
+```
+
+É possível imprimir o tamanho de cada arquivo em bytes junto com o nome usando a opção **-s**. Para imprimir o tamanho de cada arquivo, mas em um formato mais legível, usamos a opção **-h**.
+
+```bash
+sudo tree -s -h
+```
+
+Para exibir a data da hora da última modificação para cada subdiretório ou arquivo podemos usar a opção **-D**:
+
+```bash
+tree -f -pug -h -D
+```
+
+Finalmente podemos enviar ou redirecionar o *output* do programa **tree** para um arquivo para análise posterior usando a opção **-o**.
+
+```bash
+sudo tree -o arvore_diretorios.txt
+```
+
 ### Criando Arquivos
 
 Vamos aprender a criar arquivos. Uma maneira muito simples é usar o comando **touch**. O touch permite criarmos novos arquivos vazios.
