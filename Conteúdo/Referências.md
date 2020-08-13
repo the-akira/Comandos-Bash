@@ -12,6 +12,7 @@
 - [Basic Unix Commands](http://mally.stanford.edu/~sr/computing/basic-unix.html)
 - [Bash Shell Reference](https://courses.cs.washington.edu/courses/cse390a/14au/bash.html)
 - [Important Linux Commands](https://www-uxsup.csx.cam.ac.uk/pub/doc/suse/suse9.0/userguide-9.0/ch24s04.html)
+- [Practical Linux Tutorial](http://xahlee.info/linux/linux_index.html)
 - [Unix / Linux Cheat Sheet](http://cheatsheetworld.com/programming/unix-linux-cheat-sheet/)
 - [An A-Z Index of the Linux command line](https://ss64.com/bash/)
 - [Introduction to the Unix Shell (Bash)](https://pabloinsente.github.io/intro-unix-shell)

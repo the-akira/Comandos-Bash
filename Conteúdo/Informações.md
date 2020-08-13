@@ -82,16 +82,22 @@ sudo lshw -html > lshw.html
 
 ## Informações de CPU
 
-Para visualizarmos informações sobre a CPU, usamos o comando lscpu, pois mostra informações sobre a arquitetura da CPU, como número de CPUs, núcleos, modelo de família de CPUs, caches de CPU, threads, etc.
+Para visualizarmos informações sobre a CPU, usamos o comando lscpu, pois ele mostra informações sobre a arquitetura da CPU, como número de CPUs, núcleos, modelo de família de CPUs, caches de CPU, threads, etc.
 
 ```bash
 lscpu
 ```
 
-Também podemos recorrer ao arquivo **cpuinfo**
+Também podemos recorrer ao arquivo **cpuinfo** para obter informações
 
 ```bash
 cat /proc/cpuinfo 
+```
+
+Para localizarmos se CPU é de 32 bits ou 64 bits pode executar
+
+```bash
+getconf LONG_BIT
 ```
 
 ## Informações sobre Block Devices
@@ -225,6 +231,127 @@ Para sabermos o modelo podemos usar o comando.
 ```bash
 sudo dmidecode -s system-product-name
 ```
+
+## Desligar e Reiniciar o Sistema
+
+No Linux, como em todas as tarefas, as operações de desligamento e reinicialização também podem ser feitas na linha de comando. Os comandos normalmente utilizados são **shutdown**, **halt**, **poweroff**, **reboot**.
+
+Os comandos são úteis especialmente quando precisamos reiniciar um servidor Linux remoto, onde apenas o acesso ao shell está disponível e não há interface de usuário. Os servidores geralmente precisam ser reiniciados quando as atualizações são instaladas ou precisam ser desligados para outras tarefas de manutenção.
+
+### shutdown
+
+O comando **shutdown** pode ser usado para desligar um sistema ou reiniciá-lo. É comumente usado para desligar ou reinicializar máquinas locais e remotas.
+
+shutdown faz com que o sistema seja desativado de maneira segura. Todos os usuários logados são notificados de que o sistema está caindo e, nos últimos cinco minutos de **TEMPO**, novos logins são impedidos.
+
+A síntaxe dele é:
+
+```
+shutdown [OPÇÃO] [TEMPO] [MENSAGEM]
+```
+
+Para desligar uma máquina podemos executar o shutdown da seguinte forma:
+
+```bash
+shutdown -h now
+```
+
+A opção **-h** é para *halt*, o que significa parar. O segundo parâmetro é o parâmetro de tempo. "**now**" significa desligar o sistema imediatamente.
+
+O parâmetro de tempo também pode ser especificado em minutos ou horas. Por exemplo:
+
+```bash
+shutdown -h +5 "Server vai cair para atualização, por favor, salve seu trabalho."
+```
+
+O comando acima deve mostrar a mensagem para todos os outros usuários conectados e dar a eles 5 minutos antes que o sistema seja desligado.
+
+O comando shutdown também pode ser usado para reiniciar um sistema com a opção **-r**:
+
+```bash
+shutdown -r +5 "Server vai cair para atualização, por favor, salve seu trabalho."
+```
+
+Todos os outros usuários conectados verão uma mensagem de transmissão em seus terminais, neste ponto, o shutdown pode ser cancelado chamando-o com a opção "**-c**".
+
+```bash
+shutdown -c
+```
+
+### reboot
+
+O comando **reboot** pode ser utilizado para desligar ou reiniciar o sistema Linux.
+
+O seguinte comando desligará o Linux:
+
+```bash
+reboot -p
+```
+
+A opçõe "**-p**" significa poweroff. Para reinicializar o Linux, basta chamarmos o comando reboot diretamente sem nenhuma opção.
+
+```bash
+reboot
+```
+
+Isso executará um desligamento normal e reinicialização da máquina. Isso é o que acontece quando você clica em reiniciar no menu gráfico.
+
+Já o comando a seguir forçará a reinicialização da máquina. Isso é semelhante a pressionar o botão liga/desliga. Nenhum desligamento ocorre. O sistema será reiniciado instantaneamente.
+
+```bash
+reboot -f
+```
+
+### halt
+
+O comando de halt também pode desligar um sistema:
+
+```bash
+halt
+```
+
+### poweroff
+
+**poweroff** é um comando muito semelhante ao comando halt. Ele faz as mesmas coisas e usa as mesmas opções.
+
+```bash
+poweroff
+```
+
+### REISUB - Pressionamento das teclas R E I S U B
+
+Os comandos mostrados acima podem ser usados ​​quando você está no controle de seu sistema. E se o sistema travou e não está respondendo? E você não quer pressionar o botão liga/desliga da CPU, o que pode levar à corrupção de dados. Para salvar de tal situação, vêm as chaves mágicas sysRQ.
+
+Uma combinação especial de pressionamentos de tecla que permitirá que você reinicie seu sistema Linux, não importa o quanto ele esteja travado.
+
+"Um uso comum da chave mágica **SysRq** é realizar uma reinicialização segura de um computador Linux que, de outra forma, travou. Isso pode evitar que um fsck seja necessário na reinicialização e dá a alguns programas a chance de salvar backups de emergência de trabalhos não salvos."
+
+**Atenção!**: Pressionar as seguintes teclas reinicializaria instantaneamente o seu sistema. É semelhante a pressionar o botão liga/desliga ou executar o comando `reboot -f`.
+
+```
+ALT + PrintScreen + B
+```
+
+Agora, no lugar da tecla **B**, temos que usar as letras **R** **E** **I** **S** **U** primeiro. Cada chave realiza uma tarefa conforme mencionado abaixo:
+
+```
+unRaw      (take control of keyboard back from X),
+ tErminate (send SIGTERM to all processes, allowing them to terminate gracefully),
+ kIll      (send SIGKILL to all processes, forcing them to terminate immediately),
+  Sync     (flush data to disk),
+  Unmount  (remount all filesystems read-only),
+reBoot.
+```
+
+O procedimento então é:
+
+1. Mantenha pressionadas as teclas Alt e SysRq (Print Screen).
+2. Enquanto as mantém pressionadas, digite as seguintes teclas em ordem, com um intervalo: `R E I S U B`
+3. O computador deve reiniciar.
+
+Certifique-se de ter algum intervalo de tempo entre cada uma das teclas `R E I S U B`.
+
+O recurso **sysrq** pode ser controlado alterando o valor de `/proc/sys/kernel/sysrq`.
 
 ## Data e Calendário
 
