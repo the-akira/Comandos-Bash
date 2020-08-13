@@ -55,3 +55,198 @@ Os componentes instalados de um sistema Linux incluem o seguinte:
 - Os kits de ferramentas de widget são as bibliotecas usadas para construir interfaces gráficas com o usuário (GUIs) para aplicativos de software. Numerosos kits de ferramentas de widget estão disponíveis, incluindo GTK e Clutter desenvolvidos pelo projeto GNOME, Qt desenvolvido pelo Projeto Qt.
 - Um [sistema de gerenciamento de pacotes](https://en.wikipedia.org/wiki/Package_manager), como dpkg e RPM. Alternativamente, os pacotes podem ser compilados a partir de *source tarballs* ou binários.
 - Programas de interface do usuário, como shells de comando ou *windowing environments*.
+
+### Interface de Usuário
+
+A interface do usuário, também conhecida como shell, é uma [interface de linha de comando](https://en.wikipedia.org/wiki/Command-line_interface) (CLI), uma [interface gráfica do usuário](https://en.wikipedia.org/wiki/Graphical_user_interface) (GUI) ou controles anexados ao hardware associado, o que é comum para [sistemas embarcados](https://en.wikipedia.org/wiki/Embedded_systems). Para sistemas de desktop, a interface de usuário padrão geralmente é gráfica, embora a CLI esteja comumente disponível por meio de janelas do emulador de terminal ou em um console virtual separado.
+
+Os shells CLI são interfaces de usuário baseadas em texto, que usam texto para *input* e *output*. O shell dominante usado no Linux é o [Bourne-Again Shell](https://en.wikipedia.org/wiki/Bourne-Again_Shell) (bash), originalmente desenvolvido para o projeto GNU. A maioria dos componentes Linux de baixo nível, incluindo várias partes do [userland](https://en.wikipedia.org/wiki/Userland_(computing)), usam a CLI exclusivamente. O CLI é particularmente adequado para automação de tarefas repetitivas ou atrasadas e fornece [inter-process communication](https://en.wikipedia.org/wiki/Inter-process_communication) muito simples.
+
+### Programação no Linux
+
+A maioria das linguagens de programação suportam Linux diretamente, as ferramentas de desenvolvimento originais usadas para construir aplicativos Linux e programas de sistema operacional são encontradas na [GNU toolchain](https://en.wikipedia.org/wiki/GNU_toolchain), que inclui a GNU Compiler Collection (GCC) e o GNU Build System. Entre outros, o GCC fornece compiladores para Ada, C, C ++, Go e Fortran. Muitas linguagens de programação têm uma implementação de referência *cross-platform* que suporta Linux, por exemplo PHP, Perl, Ruby, Python, Java, Go, Rust e Haskell. Lançado pela primeira vez em 2003, o projeto LLVM fornece um compilador de código aberto *cross-platform* alternativo para muitas linguagens.
+
+O Linux também inclui linguagens de programação tradicionais de propósito específico voltadas para [scripting](https://en.wikipedia.org/wiki/Script_(computing)), processamento de texto e configuração e gerenciamento de sistema em geral. As distribuições Linux suportam [scripts de shell](https://en.wikipedia.org/wiki/Shell_scripts), [awk](https://en.wikipedia.org/wiki/Awk), [sed](https://en.wikipedia.org/wiki/Sed) e [make](https://en.wikipedia.org/wiki/Make_(software)). Muitos programas também possuem uma linguagem de programação incorporada para suportar a configuração ou a programação deles próprios. Por exemplo, [expressões regulares](https://en.wikipedia.org/wiki/Regular_expressions) são suportadas em programas como [grep](https://en.wikipedia.org/wiki/Grep) e [locate](https://en.wikipedia.org/wiki/Locate_(Unix)), e também o editor de texto avançado [GNU Emacs](https://en.wikipedia.org/wiki/GNU_Emacs) é construído em torno de um interpretador [Lisp](https://en.wikipedia.org/wiki/Emacs_Lisp) de propósito geral.
+
+GNOME e KDE são ambientes de desktop populares e fornecem uma estrutura para o desenvolvimento de aplicativos. Esses projetos são baseados nos kits de ferramentas de widget [GTK](https://en.wikipedia.org/wiki/GTK) e [Qt](https://en.wikipedia.org/wiki/Qt_(toolkit)), respectivamente. Ambos suportam uma ampla variedade de idiomas. Existem vários [ambientes de desenvolvimento integrados](https://en.wikipedia.org/wiki/Integrated_development_environment) disponíveis, incluindo **Anjuta**, **Code::Blocks**, **CodeLite**, **Eclipse**, **Geany**, **ActiveState Komodo**, **KDevelop**, **Lazarus**, **MonoDevelop**, **NetBeans** e **Qt Creator**, enquanto os editores **Vim**, **nano** e **Emacs** de longa data também permanecem popular.
+
+### Suporte de Hardware
+
+O **kernel Linux** é um kernel de sistema operacional amplamente portado, disponível para dispositivos que variam de telefones móveis a supercomputadores; ele roda em uma ampla variedade de arquiteturas de computador, incluindo o iPAQ portátil baseado em ARM e os mainframes IBM System z9 ou System z10. Distribuições especializadas e *kernel forks* existem para arquiteturas menos convencionais, por exemplo, o fork do kernel ELKS pode ser executado em microprocessadores Intel 8086 ou Intel 80286 de 16 bits, enquanto o fork do kernel µClinux pode ser executado em sistemas sem uma unidade de gerenciamento de memória. O kernel também roda em arquiteturas que pretendiam usar apenas um sistema operacional criado pelo fabricante, como computadores Macintosh (com processadores PowerPC e Intel), PDAs, consoles de videogame, reprodutores de música portáteis e telefones celulares.
+
+### Linux Kernel
+
+O sistema operacional Linux pode ser organizado em três níveis diferentes de abstração:
+
+- O nível mais básico é o hardware, que inclui a CPU, memória, discos rígidos, portas de rede, etc. A camada física que realmente calcula o que nossa máquina está fazendo.
+
+- O próximo nível é o kernel, que lida com gerenciamento de processos e memória, comunicação de dispositivos, chamadas de sistema, configura nosso sistema de arquivos, etc. O trabalho do kernel é conversar com o hardware para ter certeza de que ele faz o que queremos que nossos processos façam.
+
+- E o nível com o qual estamos familiarizados é o **user space**, que inclui o shell, os programas que executamos, os gráficos, etc.
+
+#### Níveis de Privilégio
+
+Por que temos diferentes camadas de abstração para o **user space** e o kernel?
+
+Há um importante motivo pelo qual essas duas camadas existem separadamente. Ambos operam em modos diferentes, o kernel opera no **modo kernel** e o user space opera no **modo usuário**.
+
+No modo kernel, o kernel tem acesso completo ao hardware, ele controla tudo. No modo usuário, há uma quantidade muito pequena de memória segura e CPU que você tem permissão para acessar. Basicamente, quando queremos fazer algo que envolva hardware, ler dados de nossos discos, gravar dados em nossos discos, controlar nossa rede, tudo é feito em modo kernel.
+
+Esses diferentes modos são chamados de níveis de privilégio (apropriadamente nomeados de acordo com os níveis de privilégio que você obtém).
+
+Existem dois níveis ou modos principais em uma arquitetura de computador x86. O ring #3 é o privilégio no qual os aplicativos do modo de usuário são executados, o ring #0 é o privilégio no qual o kernel é executado. O ring #0 pode executar qualquer instrução do sistema e recebe total confiança. 
+
+Como então podemos gravar qualquer coisa em nosso hardware? Não estaremos sempre em um modo diferente do kernel?
+
+A resposta é com **system calls**, essas chamadas de sistema nos permitem executar uma instrução privilegiada no modo kernel e, em seguida, voltar ao modo de usuário.
+
+#### System Calls
+
+System calls (syscall) fornecem aos processos de espaço do usuário uma maneira de solicitar que o kernel faça algo por nós. O kernel disponibiliza certos serviços por meio da *system call API*. Esses serviços nos permitem ler ou gravar em um arquivo, modificar o uso de memória, modificar nossa rede, etc. A quantidade de serviços é fixa, então não podemos adicionar system calls, nosso sistema já tem uma tabela de qual system calls existem e cada system call possui um ID exclusivo.
+
+Podemos ver as system calls que um processo faz com o comando **strace**. Ele é útil para depurar como um programa é executado.
+
+```bash
+strace cat
+```
+
+#### Instalação do Kernel
+
+Podemos instalar vários kernels em nosso sistema, no menu GRUB podemos escolher em qual kernel inicializar.
+
+Para ver qual versão do kernel temos em nosso sistema podemos usar o comando:
+
+```bash
+uname -r
+```
+
+É possível instalar o kernel do Linux de diferentes maneiras, podemos por exemplo baixar o *source package* e compilar ele ou podemos instalá-lo usando ferramentas de gerenciamento de pacote.
+
+```bash
+sudo apt install linux-generic-lts-vivid
+```
+
+E então reiniciamos no kernel que instalamos. Também será necessário instalar outros pacotes do linux, como linux-headers, linux-image-generic, etc). É possível também especificar o número da versão, nesse caso comando acima seria semelhante a: 
+
+```bash
+sudo apt install 3.19.0-43-generic
+```
+
+Alternativamente, se desejarmos apenas a versão atualizada do kernel, podemos usar dist-upgrade, ele executa atualizações para todos os pacotes em nosso sistema:
+
+```bash
+sudo apt dist-upgrade
+```
+
+#### Localização do Kernel
+
+O que acontece quando instalamos um novo kernel? 
+
+Ocorre que são adicionados alguns arquivos ao nosso sistema, esses arquivos geralmente são adicionados ao diretório `/boot`.
+
+Existem vários arquivos para diferentes versões do kernel, por exemplo:
+
+- **vmlinuz** - este é o kernel Linux real
+- **initrd** - é usado como um sistema de arquivos temporário, usado antes de carregar o kernel
+- **System.map** - tabela de pesquisa simbólica
+- **config** - definições de configuração do kernel, se você está compilando seu próprio kernel, você pode definir quais módulos podem ser carregados
+
+#### Módulos do Kernel
+
+O kernel é um pedaço de software monolítico, quando desejamos adicionar suporte para um novo tipo de teclado, não escrevemos este código diretamente no código do kernel.
+
+Módulos de kernel são pedaços de código que podem ser carregados e descarregados no kernel sob demanda. Eles nos permitem estender a funcionalidade do kernel sem realmente adicionar ao código do núcleo do kernel. Também podemos adicionar módulos e não ter que reiniciar o sistema (na maioria dos casos).
+
+Para vermos uma lista dos módulos carregados atualmente podemos executar o comando:
+
+```bash
+lsmod
+```
+
+Para carregarmos um módulo:
+
+```bash
+sudo modprobe bluetooth
+```
+
+O Modprobe tentar carregar o módulo de `/lib/modules/(versão do kernel)/kernel/drivers`. Módulos de kernel também podem ter dependências, modprobe carrega nossas dependências de módulo se eles ainda não estiverem carregados.
+
+Para remover um módulo:
+
+```bash
+sudo modprobe -r bluetooth
+```
+
+Também podemos carregar módulos durante a inicialização do sistema, em vez de carregá-los temporariamente com o modprobe (que será descarregado quando você reiniciar). Basta modificar o diretório `/etc/modprobe.d` e adicionar um arquivo de configuração como:
+
+**configuracao.conf**:
+
+```
+options nome_modulo type=almond
+```
+
+Também podemos garantir que um módulo não carregue na inicialização adicionando um arquivo de configuração como:
+
+**configuracao.conf**:
+
+```
+blacklist nome_modulo
+```
+
+### Processo de Boot do Linux
+
+O processo de inicialização (*boot process*) do Linux pode ser dividido em 4 etapas simples:
+
+1. **BIOS**: O BIOS (significa "*Basic Input/Output System*") inicializa o hardware e garante com um autoteste de inicialização (POST) que todo o hardware está pronto para funcionar. A principal tarefa do BIOS é carregar o bootloader.
+
+Existe outra maneira de inicializar seu sistema em vez de usar BIOS, que é com UEFI (significa "*Unified extensible firmware interface*"). O UEFI foi projetado para ser o sucessor do BIOS, a maioria do hardware que existe hoje vem com firmware UEFI integrado. As máquinas Macintosh têm usado a inicialização UEFI há anos.
+
+UEFI armazena todas as informações sobre a inicialização em um arquivo `.efi`. Este arquivo é armazenado em uma partição especial chamada partição do sistema EFI no hardware. Dentro desta partição ele conterá o bootloader. UEFI vem com muitas melhorias do firmware BIOS tradicional.
+
+2. **Bootloader**: O bootloader carrega o kernel na memória e então inicia o kernel com um conjunto de parâmetros do kernel. Um dos bootloaders mais comuns é o GRUB, que é um padrão Linux universal.
+
+As principais responsabilidades do bootloader são:
+
+- Inicializar um sistema operacional, ele também pode ser usado para inicializar em sistemas operacionais não Linux
+- Selecione um kernel para usar
+- Especifique os parâmetros do kernel
+
+Para encontrar o kernel o bootloader conta com os *kernel parameters*:
+
+- initrd - especifica a localização do disco RAM inicial
+- BOOT_IMAGE - onde a imagem do kernel está localizada
+- root - A localização do sistema de arquivos raiz, o kernel procura dentro desta localização para encontrar o init. Geralmente é representado por seu UUID ou pelo nome do dispositivo, como `/dev/sda1`
+ro - monta o sistema de arquivos como modo somente leitura.
+quiet - adicionado para que você não veja mensagens de exibição que estão acontecendo em segundo plano durante a inicialização.
+
+3. **Kernel**: Quando o kernel é carregado, ele inicializa imediatamente os dispositivos e a memória. A principal tarefa do kernel é carregar o processo init.
+
+4. **Init**: O processo init é o primeiro processo iniciado, init inicia e interrompe o processo de serviço essencial no sistema. Existem três implementações principais do init nas distribuições Linux. 
+
+- **System V init (sysv)**: Este é o sistema init tradicional. Ele inicia e processa sequencialmente, com base em scripts de inicialização. O estado da máquina é denotado por níveis de execução, cada nível de execução inicia ou interrompe uma máquina de uma maneira diferente.
+
+- **Upstart**: Este é o init que você encontrará em instalações antigas do Ubuntu. O Upstart usa a ideia de jobs e eventos e funciona iniciando jobs que realizam determinadas ações em resposta a eventos.
+
+- **Systemd**: Este é o novo padrão para init, ele é orientado a objetivos. Basicamente, você tem uma meta que deseja atingir e o systemd tenta satisfazer as dependências da meta para concluí-la.
+
+### Arquitetura Linux
+
+Linux é um [kernel monolítico](https://en.wikipedia.org/wiki/Monolithic_kernel) com um design modular (por exemplo, pode inserir e remover [LKMs](https://en.wikipedia.org/wiki/Loadable_kernel_module) em tempo de execução), suportando a maioria dos recursos antes disponíveis apenas em kernels de sistemas operacionais não livres e de código fechado:
+
+- [Concurrent computing](https://en.wikipedia.org/wiki/Concurrent_computing) e (com a disponibilidade de núcleos de CPU suficientes para tarefas que estão prontas para serem executadas) até mesmo [execução paralela verdadeira](https://en.wikipedia.org/wiki/Parallel_computing) de muitos processos ao mesmo tempo (cada um deles tendo um ou mais [threads de execução](https://en.wikipedia.org/wiki/Thread_(computing)).
+- Recursos configuráveis e políticas controláveis ​​em tempo de execução. O [Completely Fair Scheduler](https://en.wikipedia.org/wiki/Completely_Fair_Scheduler) (CFS) é o agendador padrão do Linux desde 2007 e usa uma [red-black tree](https://en.wikipedia.org/wiki/Red%E2%80%93black_tree) que pode pesquisar, inserir e excluir informações do processo ([task_struct](https://en.wikipedia.org/wiki/Task_struct)) com complexidade de tempo `O(log n)`, onde n é o número de tarefas executáveis.
+- gerenciamento avançado de memória com memória virtual paginada.
+- *inter-process communications* e mecanismo de sincronização.
+- um sistema de arquivos virtual em cima de vários sistemas de arquivos concretos (ext4, Btrfs, XFS, JFS, FAT32 e muitos mais).
+- Virtualização no nível do sistema operacional (com Linux-VServer), paravirtualização e virtualização assistida por hardware (com KVM ou Xen).
+- mecanismos de segurança para controle de acesso discricionário e obrigatório (SELinux, AppArmor, POSIX ACLs e outros).
+- vários tipos de protocolos de comunicação em camadas (incluindo o [conjunto de protocolos da Internet](https://en.wikipedia.org/wiki/Internet_protocol_suite)).
+
+Drivers de dispositivo e extensões de kernel são executados no espaço do kernel (ring 0 em muitas arquiteturas de CPU), com acesso total ao hardware, embora algumas exceções sejam executadas no espaço do usuário, por exemplo, sistemas de arquivos baseados em FUSE CUSE. O sistema gráfico que a maioria das pessoas usa com o Linux não funciona dentro do kernel. Ao contrário dos kernels monolíticos padrão, os drivers de dispositivo são facilmente configurados como módulos e carregados ou descarregados enquanto o sistema está em execução e também podem ser antecipados sob certas condições para lidar com interrupções de hardware corretamente e para melhor suportar [multiprocessamento simétrico](https://en.wikipedia.org/wiki/Symmetric_multiprocessing).
+
+### Material Anexo
+
+- [Unix vs Linux](https://www.youtube.com/watch?v=jowCUo_UGts)
+- [Mapa Interativo do Kernel Linux](https://makelinux.github.io/kernel/map/)
+- [Mainframes and the Unix Revolution](https://www.youtube.com/watch?v=-rPPqm44xLs)
+- [AT&T Archives: The UNIX Operating System](https://www.youtube.com/watch?v=tc4ROCJYbm0&t)
