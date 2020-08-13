@@ -94,7 +94,7 @@ Também podemos recorrer ao arquivo **cpuinfo** para obter informações
 cat /proc/cpuinfo 
 ```
 
-Para localizarmos se CPU é de 32 bits ou 64 bits pode executar
+Para localizarmos se CPU é de 32 bits ou 64 bits podemos executar
 
 ```bash
 getconf LONG_BIT
@@ -304,10 +304,16 @@ reboot -f
 
 ### halt
 
-O comando de halt também pode desligar um sistema:
+O comando **halt** também pode desligar um sistema:
 
 ```bash
 halt
+```
+
+Para mais detalhes e opções:
+
+```bash
+man halt 
 ```
 
 ### poweroff
