@@ -197,13 +197,13 @@ blacklist nome_modulo
 
 O processo de inicialização (*boot process*) do Linux pode ser dividido em 4 etapas simples:
 
-1. **BIOS**: O BIOS (significa "*Basic Input/Output System*") inicializa o hardware e garante com um autoteste de inicialização (POST) que todo o hardware está pronto para funcionar. A principal tarefa do BIOS é carregar o bootloader.
+**BIOS**: O BIOS (significa "*Basic Input/Output System*") inicializa o hardware e garante com um autoteste de inicialização (POST) que todo o hardware está pronto para funcionar. A principal tarefa do BIOS é carregar o bootloader.
 
 Existe outra maneira de inicializar seu sistema em vez de usar BIOS, que é com UEFI (significa "*Unified extensible firmware interface*"). O UEFI foi projetado para ser o sucessor do BIOS, a maioria do hardware que existe hoje vem com firmware UEFI integrado. As máquinas Macintosh têm usado a inicialização UEFI há anos.
 
 UEFI armazena todas as informações sobre a inicialização em um arquivo `.efi`. Este arquivo é armazenado em uma partição especial chamada partição do sistema EFI no hardware. Dentro desta partição ele conterá o bootloader. UEFI vem com muitas melhorias do firmware BIOS tradicional.
 
-2. **Bootloader**: O bootloader carrega o kernel na memória e então inicia o kernel com um conjunto de parâmetros do kernel. Um dos bootloaders mais comuns é o GRUB, que é um padrão Linux universal.
+**Bootloader**: O bootloader carrega o kernel na memória e então inicia o kernel com um conjunto de parâmetros do kernel. Um dos bootloaders mais comuns é o GRUB, que é um padrão Linux universal.
 
 As principais responsabilidades do bootloader são:
 
@@ -219,9 +219,9 @@ Para encontrar o kernel o bootloader conta com os *kernel parameters*:
 ro - monta o sistema de arquivos como modo somente leitura.
 quiet - adicionado para que você não veja mensagens de exibição que estão acontecendo em segundo plano durante a inicialização.
 
-3. **Kernel**: Quando o kernel é carregado, ele inicializa imediatamente os dispositivos e a memória. A principal tarefa do kernel é carregar o processo init.
+**Kernel**: Quando o kernel é carregado, ele inicializa imediatamente os dispositivos e a memória. A principal tarefa do kernel é carregar o processo init.
 
-4. **Init**: O processo init é o primeiro processo iniciado, init inicia e interrompe o processo de serviço essencial no sistema. Existem três implementações principais do init nas distribuições Linux. 
+**Init**: O processo init é o primeiro processo iniciado, init inicia e interrompe o processo de serviço essencial no sistema. Existem três implementações principais do init nas distribuições Linux. 
 
 - **System V init (sysv)**: Este é o sistema init tradicional. Ele inicia e processa sequencialmente, com base em scripts de inicialização. O estado da máquina é denotado por níveis de execução, cada nível de execução inicia ou interrompe uma máquina de uma maneira diferente.
 
