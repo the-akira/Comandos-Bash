@@ -44,7 +44,7 @@ O GNU [userland](https://en.wikipedia.org/wiki/Userland_(computing)) é uma part
 
 A figura a seguir apresenta várias camadas dentro do Linux, também mostrando separação entre o [userland](https://en.wikipedia.org/wiki/User_space) e o [kernel space](https://en.wikipedia.org/wiki/Kernel_space):
 
-![img](https://i.ibb.co/v1PRNwj/linux-layers.png)
+![img](https://i.ibb.co/KjWwMcZ/linux-layers.png)
 
 Os componentes instalados de um sistema Linux incluem o seguinte:
 
