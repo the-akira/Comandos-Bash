@@ -675,6 +675,190 @@ Outra opção muito interessante é a **-f** que nos permite receber os padrões
 grep -f padrao.txt arquivo.txt
 ```
 
+### sed (stream editor)
+
+**Sed** ou **Stream Editor** é um utilitário muito poderoso oferecido por sistemas Linux/Unix. É usado principalmente para substituição, localizar e substituir texto, mas também pode realizar outras manipulações de texto, como inserção, exclusão, pesquisa, etc.
+
+Com o Sed, podemos editar arquivos completos sem realmente ter que abrí-los. O Sed também suporta o uso de **expressões regulares**, o que torna o sed uma ferramenta de manipulação de texto ainda mais poderosa.
+
+Para compreendermos melhor o programa Sed veremos exemplos de como usá-lo para diferentes finalidades, para isso contaremos com a ajuda dos arquivos [pokedex.json](https://github.com/the-akira/Comandos-Bash/blob/master/Arquivos/pokedex.json), [pessoas.csv](https://github.com/the-akira/Comandos-Bash/blob/master/Arquivos/pessoas.csv) e [tuplas.py](https://github.com/the-akira/Comandos-Bash/blob/master/Arquivos/tuplas.py).
+
+Para imprimirmos o conteúdo de um arquivo em nosso terminal podemos usar:
+
+```bash
+sed "" tuplas.py
+```
+
+O comando sed mais básico consiste em `s/antigo/novo/g`. Isso se traduz em pesquisar o valor antigo, **substituir** todas as ocorrências in-line pelo valor novo. Sem o `/g`, nosso comando terminaria após a primeira ocorrência na linha, ou seja, só executará a substituição uma vez por linha.
+
+```bash
+sed "s/ex/exemplo/g" tuplas.py
+```
+
+Ao executarmos este comando veremos que todos **ex** foram substituídos por **exemplo**.
+
+Da mesma maneira, se não especificarmos algo para substituição, iremos remover as ocorrências:
+
+```bash
+sed "s/_ex//g" tuplas.py
+```
+
+Como podemos observar, o sufixo `_ex` foi eliminado das variáveis que o possuiam.
+
+Para removermos os comentários de nosso arquivo python, podemos utilizar uma expressão regular como essa:
+
+```bash
+sed "s/#.*//g" tuplas.py
+```
+
+Se desejarmos alterar o arquivo devemos especificar a opção **-i**:
+
+```bash
+sed -i "s/#.*//g" tuplas.py
+```
+
+Caso queíramos também eliminar as linhas em branco extra, podemos fazê-lo usando múltiplos comandos substituição:
+
+```bash
+sed "s/#.*//g; /^$/ d" tuplas.py
+```
+
+O comando **d** significa **delete**, estamos então deletando todas as linhas vazias denotadas pela expressão `^$`.
+
+Podemos também por exemplo ler o conteúdo de um arquivo, manipular ele e redirecionar o *output* para um outro arquivo:
+
+```bash
+sed "s/#.*//g; /^$/ d" < tuplas.py > tup.py
+```
+
+O *output* será redirecionado para o arquivo `tup.py` que ficará sem nenhuma linha em branco.
+
+Se desejarmos por exemplo substituir todas as palavras que começam com `t` para um `T` maiúsculo:
+
+```bash
+sed "s/^t/T/g" tuplas.py
+```
+
+Imagine que temos um arquivo **csv** com uma coluna representando o saldo de uma pessoa e desejamos eliminar o prefixo `R$`:
+
+```bash
+sed 's/R\$//g' pessoas.csv
+``` 
+
+E dessa vez, eliminar as vírgulas em nossos valores da coluna saldo: 
+
+```bash
+sed 's/\([0-9]\),\([0-9]\)/\1\2/g' pessoas.csv
+```
+
+Digamos agora que queremos remover as entradas para o **gabriel** e **rafael**:
+
+```bash
+sed '/gabriel/ d; /rafael/ d' pessoas.csv
+```
+
+Com o sed, podemos ver apenas uma parte de um arquivo, em vez de ver o arquivo inteiro. Para ver algumas linhas do arquivo, usamos o seguinte comando:
+
+```bash
+sed -n 22,29p pokedex.json
+```
+
+A opção **-n** suprime a impressão de todo o arquivo e a opção **p** imprimirá apenas as linhas **22** até **29**.
+
+Para exibir todo o conteúdo de um arquivo, exceto uma parte, usamos o seguinte comando:
+
+```bash
+sed 22,16586d pokedex.json
+```
+
+A opção **d** removerá as linhas mencionadas de nosso *output*, imprimindo então só as 21 primeiras linhas de nosso arquivo.
+
+Para excluir uma linha de um arquivo com sed podemos usar:
+
+```bash
+sed Nd pessoas.csv
+```
+
+Em que **N** é o número da linha que queremos remover e **d** irá deletar a linha mencionada. Portanto se quisermos remover a primeira linha:
+
+```bash
+sed 1d pessoas.csv
+```
+
+Ou até mesmo remover a última linha com o comando:
+
+```bash
+sed '$ d' pessoas.csv
+```
+
+Para excluirmos um intervalo de linhas do arquivo devemos executar:
+
+```bash
+sed '42,16586d' pokedex.json
+```
+
+Para adicionar uma linha em branco após cada linha não em branco, usaremos a opção **G**:
+
+```bash
+sed G pokedex.json
+```
+
+Para substituirmos uma string apenas de uma linha específica podemos usar:
+
+```bash
+sed '10 s/Grass/Planta/' pokedex.json
+```
+
+O pokémon Bulbasaur passará a ser do **type** Planta.
+
+Para adicionar uma nova linha com algum conteúdo após cada correspondência de nosso padrão, usamos a opção **a**:
+
+```bash
+sed '/print/a # Comando print sendo utilizado acima' tuplas.py
+```
+
+Para adicionar uma nova linha com algum conteúdo antes de cada correspondência de nosso padrão, usamos a opção **i**:
+
+```bash
+sed '/print/i # Comando print sendo utilizado abaixo' tuplas.py
+```
+
+Para mudar uma linha inteira para uma nova linha quando um padrão de pesquisa corresponde, devemos usar a opção **c**:
+
+```bash
+sed '/Electric/c "Elétrico"' pokedex.json
+```
+
+Se precisarmos realizar múltiplas expressões sed, podemos usar a opção **-e** para encadear os comandos sed:
+
+```bash
+echo "cachorro triste" | sed -e 's/cachorro/gato/' -e 's/triste/feliz/'
+```
+
+Para deletar uma linha começando com uma determinada string e terminando com outra string, usamos:
+
+```bash
+sed -e 's/^#.*dados$//g' tuplas.py
+```
+
+Este comando removerá a seguinte linha: `# Listas é possível adicionar, remover e mudar dados`.
+
+Para adicionarmos algum conteúdo antes de cada linha podemos usar a seguinte expressão:
+
+```bash
+sed -e 's/.*/# &/' pessoas.csv
+```
+
+Cada linha agora terá `#` antes dela.
+
+Para obtermos uma lista de todos os nomes de usuário em `/etc/passwd` podemos executar:
+
+```bash
+sed 's/\([^:]*\).*/\1/' /etc/passwd
+```
+
+É importante lembrarmos que o comando `sed -i` é conhecido por remover links do sistema e criar apenas arquivos regulares no lugar do arquivo de link. Portanto, para evitar tal situação e impedir que `sed -i` destrua os links, podemos usar as opções **--follow-symlinks** com o comando sendo executado.
+
 ## Comandos de Pesquisa do Linux
 
 O Linux oferece algumas maneiras diferentes de pesquisarmos, e cada uma tem seus méritos. Veremos como usar `find`, `locate`, `which`, `whereis` e `apropos`. Cada um se destaca em tarefas diferentes.
