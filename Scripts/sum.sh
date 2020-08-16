@@ -1,6 +1,6 @@
 #!/bin/bash
 soma=0
-for (( i=1; i<=20; i++ ))
+for (( i=1; i<=36; i++ ))
 do
 	(( soma+=i ))
 	echo -n "$i "
