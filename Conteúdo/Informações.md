@@ -362,3 +362,11 @@ O recurso **sysrq** pode ser controlado alterando o valor de `/proc/sys/kernel/s
 ## Data e Calendário
 
 O comando **date** nos traz informação sobre o dia e horário e o comando **cal** nos traz um calendário, ambos contam com diversas opções.
+
+Podemos por exemplo compor o seguinte *output* com date:
+
+```bash
+date +"%d/%m/%Y"
+```
+
+Que me traz o resultado: `14/08/2020`.
