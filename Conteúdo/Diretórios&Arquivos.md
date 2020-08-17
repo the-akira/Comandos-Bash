@@ -81,7 +81,7 @@ cd ~
 cd - 
 ```
 
-**Auto-complete**: Quando estamos utilizando comandos no Bash, podemos contar com uma característica chamada *auto-complete*, que trata de auto-completar um comando para nós de forma a aumentar nossa eficiência. Por exemplo, se digitarmos o comando `cd Git` e apertarmos a tecla `[tab]` uma vez, ele irá preencher o comando com o diretório correspondente, que nesse é `GitHub`, se houver mais opções similares ele nos tratá todas elas. Se usarmos somente um comando como `ls` e teclarmos `[tab]` duas vezes, ele tratá todas as opções possíveis de auto-complete existentes.
+**Auto-complete**: Quando estamos utilizando comandos no Bash, podemos contar com uma característica chamada *auto-complete*, que trata de auto-completar um comando para nós de forma a aumentar nossa eficiência. Por exemplo, se digitarmos o comando `cd Git` e apertarmos a tecla `[tab]` uma vez, ele irá preencher o comando com o diretório correspondente, que nesse exemplo é `GitHub`, se houver mais opções similares ele nos tratá todas elas. Se usarmos somente um comando como `ls` e teclarmos `[tab]` duas vezes, ele tratá todas as opções possíveis de auto-complete existentes.
 
 ### Listando Arquivos e Diretórios
 
