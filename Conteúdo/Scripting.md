@@ -436,6 +436,46 @@ echo $substring
 
 Este script irá imprimir apenas `Programação` em nosso tela. A expansão do parâmetro assume a forma `${VAR:S:L}`. Onde, **S** denota a posição inicial e **L** indica o comprimento.
 
+Podemos ainda usar [Parameter expansion](http://wiki.bash-hackers.org/syntax/pe) para manipular caminhos de nosso sistema:
+
+```bash
+STR="/arquivos/teste/main.cpp"
+echo ${STR%.cpp}    # /arquivos/teste/main
+echo ${STR%.cpp}.o  # /arquivos/teste/main.o
+echo ${STR%/*}      # /arquivos/teste
+
+echo ${STR##*.}     # cpp (extensão)
+echo ${STR##*/}     # main.cpp (basepath)
+
+echo ${STR#*/}      # arquivos/teste/main.cpp
+echo ${STR##*/}     # main.cpp
+
+echo ${STR/main/tests} # /arquivos/teste/tests.cpp
+
+SRC="/arquivos/teste/main.cpp" # /arquivos/teste/main.cpp
+BASE=${SRC##*/}   # main.cpp (basepath)
+DIR=${SRC%$BASE}  # /arquivos/teste/ (dirpath)
+
+echo $SRC $BASE $DIR
+```
+
+#### Manipulando Strings
+
+- `,` - Altera o primeiro caractere para *lowercase*
+- `,,` - Altera todos os caracteres para *lowercase*
+- `^` - Altera o primeiro caractere para *uppercase*
+- `^^` - Altera todos os caracteres para *uppercase*
+
+```bash
+STR="BASH"
+echo ${STR,} # bASH
+echo ${STR,,} # bash
+
+STR="programming!"
+echo ${STR^} # Programming!
+echo ${STR^^} # PROGRAMMING!
+```
+
 #### Extraindo Substrings com Cut
 
 O comando **cut** do Linux pode ser usado dentro dos scripts para "cortar" uma parte de uma string, também conhecida como substring. O exemplo a seguir mostra como podemos usá-lo:
@@ -752,3 +792,63 @@ echo -e "\n$(date "+%T") Script finalizado"
 ```
 
 O script também cuida de pacotes antigos que não são mais necessários. Precisamos executar este script usando o **sudo**, caso contrário ele não funcionará corretamente.
+
+#### Arrays
+
+O array é uma variável que contém vários valores que podem ser do mesmo tipo ou de tipos diferentes. Não há limite máximo para o tamanho de um array, nem qualquer requisito de que as variáveis de membro sejam indexadas ou atribuídas de forma contígua. O índice do array começa com zero.
+
+O exemplo a seguir nos mostra como podemos usar os arrays no Bash:
+
+```bash
+#!/bin/bash
+
+# Definindo o array de arquivos
+arquivos=( "/etc/passwd" "/etc/group" "/etc/hosts" )
+
+# Extraindo o tamanho do array
+tamanho_array=${#arquivos[@]}
+
+# Extraindo cada elemento do array
+elemento1=${arquivos[0]}
+elemento2=${arquivos[1]}
+elemento3=${arquivos[2]}
+
+# Imprimindo elementos individualmente
+echo $elemento1, $elemento2, $elemento3
+
+# Percorrendo todos os elementos com for
+for i in "${arquivos[@]}"
+do
+	echo $i
+done
+
+# Percorrendo todos os elementos com for
+for (( i=0; i<$tamanho_array; i++))
+do
+	echo ${arquivos[${i}]}
+done
+```
+
+#### Números Aleatórios
+
+O Bash fornece uma variável global $RANDOM que imprime um número aleatório entre 0 e 32.767 toda vez que o acessamos.
+
+```bash
+#!/bin/bash
+echo $RANDOM $RANDOM $RANDOM 
+
+# número aleatório entre 0-10
+echo $(($RANDOM % 11))
+```
+
+#### Checando o Resultado de um Comando:
+
+Neste exemplo se o comando **ping** executar com sucesso então executaremos o comando `echo "Internet está operando."` do bloco **if**.
+
+```bash
+if ping -c 1 google.com; then
+  echo "Internet está operando."
+fi
+```
+
+Os scripts Bash apresentados nesse artigo podem ser encontrados no seguinte diretório **[Scripts](https://github.com/the-akira/Comandos-Bash/tree/master/Scripts)**
