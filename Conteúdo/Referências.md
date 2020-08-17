@@ -17,6 +17,7 @@
 - [Important Linux Commands](https://www-uxsup.csx.cam.ac.uk/pub/doc/suse/suse9.0/userguide-9.0/ch24s04.html)
 - [Practical Linux Tutorial](http://xahlee.info/linux/linux_index.html)
 - [Unix / Linux Cheat Sheet](http://cheatsheetworld.com/programming/unix-linux-cheat-sheet/)
+- [HaWo's Linux Introduction](https://www.macs.hw.ac.uk/~hwloidl/Courses/LinuxIntro/t1.html)
 - [An A-Z Index of the Linux command line](https://ss64.com/bash/)
 - [Introduction to the Unix Shell (Bash)](https://pabloinsente.github.io/intro-unix-shell)
 - [101 Bash Commands and Tips for Beginners to Experts](https://dev.to/awwsmm/101-bash-commands-and-tips-for-beginners-to-experts-30je)

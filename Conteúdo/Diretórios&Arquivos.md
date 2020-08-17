@@ -218,6 +218,32 @@ Finalmente podemos enviar ou redirecionar o *output* do programa **tree** para u
 sudo tree -o arvore_diretorios.txt
 ```
 
+o comando **du** (*Disk Usage*) é um comando padrão Unix/Linux usado para verificar as informações de uso do disco de arquivos e diretórios em uma máquina. O comando du tem muitas opções de parâmetro que podem ser usadas para obter os resultados em muitos formatos. Ele também é capaz de exibir os arquivos e tamanhos de diretório de maneira recursiva.
+
+Podemos usar ele em um arquivo, juntamente com a opção **-h** que indica *human readable*, em outras palavras, legível para humanos.
+
+```bash
+du -h arrays.sh
+```
+
+Podemos também user ele em um diretório:
+
+```bash
+du -h arquivos/
+```
+
+Se usarmos a opção **-a** ele listará todos os arquivos dentro do diretório:
+
+```bash
+du -ha files/
+```
+
+Para exibirmos o uso do disco com base na modificação do tempo, usamos a opção **--time**:
+
+```bash
+du -ha --time files/
+```
+
 ### Criando Arquivos
 
 Vamos aprender a criar arquivos. Uma maneira muito simples é usar o comando **touch**. O touch permite criarmos novos arquivos vazios.
@@ -373,6 +399,14 @@ cp -i texto.txt Arquivos
 ```
 
 Nesse caso nos será perguntado se desejamos sobrescrever o arquivo **texto.txt**, uma vez que já existe um arquivo com o mesmo nome dentro do diretório **Arquivos**.
+
+Para copiar um arquivo com um determinado caminho para o nosso diretório atual, podemos usar o comando:
+
+```bash
+cp /home/akira/Documents/domains.csv .
+```
+
+O `.` indica nosso diretório atual.
 
 ### Examinando Arquivos
 
