@@ -3,7 +3,7 @@
 echo -e "\n$(date "+%d-%m-%Y --- %T") Iniciando Atualização\n"
 
 apt update
-apt upgrade
+apt upgrade -y
 
 apt autoremove
 apt autoclean
