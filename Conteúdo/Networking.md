@@ -624,3 +624,89 @@ Alguns sites verificam o *user agent*. (agente de usuário, basicamente signific
 ```bash
 wget http://examplo.com/ --user-agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.96 Safari/537.36'
 ```
+
+### Analisando o Arquivo access.log do Apache
+
+Os logs podem ser um aspecto extremamente importante para nosso ambiente web. Eles fornecem dados adicionais que são úteis para fins de *debugging*, fins informativos, de segurança e muito mais.
+
+Os logs de acesso do Apache armazenam informações sobre eventos que ocorreram em seu servidor da web Apache. Por exemplo, quando alguém visita seu site, um log é registrado e armazenado para fornecer ao administrador do servidor web Apache informações como o endereço IP do visitante, quais páginas ele estava visualizando, códigos de status, navegador usado, etc.
+
+Os servidores web Apache também fornecem aos administradores outro tipo de arquivo de log denominado **logs de erro**. Este arquivo de log é usado para fornecer mais informações sobre um erro específico que ocorreu no servidor da web. No entanto, para este exemplo, vamos nos concentrar especificamente no arquivo de **log de acesso** do Apache.
+
+#### Localização do Arquivo access.log
+
+Para a maioria dos usuários do apache, o log de acesso estará localizado no mesmo local. 
+
+```
+/var/log/apache/access.log
+/var/log/apache2/access.log
+```
+
+Se nenhum desses caminhos levar você ao arquivo de log de acesso do Apache, então você pode ter uma configuração personalizada em seu arquivo de configuração do Apache que define onde o arquivo `access.log` está localizado. Podemos executar o seguinte comando se não conseguirmos encontrar o arquivo: `sudo locate access.log`
+
+#### Compreendendo o Arquivo access.log
+
+O arquivo `access.log` nos traz as informações divididas em diversas seções, vejamos um exemplo do formato usado mais comum:
+
+```
+LogFormat "%h %l %u %t \"%r\" %>s %b"
+```
+
+Em que cada seção(%) significa:
+
+- `%h` - O endereço IP do cliente.
+- `%l` - A identidade do cliente determinada por `identd` na máquina do cliente. Retornará um hífen (-) se esta informação não estiver disponível.
+- `%u` - O userid do cliente, se a solicitação foi autenticada.
+- `%t` - A hora em que a solicitação foi recebida.
+- `\"%r\"` - A linha de solicitação que inclui o método HTTP usado, o caminho do recurso solicitado e o protocolo HTTP usado pelo cliente.
+- `%>s` - O código de status que o servidor envia de volta ao cliente.
+- `%b` - O tamanho do objeto solicitado.
+
+Se uma solicitação for feita a um site usando o formato de registro mencionado acima, o registro resultante seria semelhante ao seguinte.
+
+```
+127.0.0.1 - felippe [9/Feb/2020:10:34:12 -0700] "GET /image.png HTTP/2" 200 1600
+```
+
+Caso queira customizar o seu arquivo, você pode ver a lista completa de diretivas em [Apache Module mod_log_config](http://httpd.apache.org/docs/current/mod/mod_log_config.html#formats)
+
+#### Obtendo Informações do Arquivo access.log
+
+Podemos contar com a ajuda dos comandos Bash para analisar o arquivo [access.log](https://github.com/the-akira/Comandos-Bash/blob/master/Arquivos/access.log) e assim extrair informações úteis dele.
+
+Podemos por exemplo iniciar obtendo conhecimento do tamanho do arquivo com o comando **du**:
+
+```bash
+du -h access.log
+```
+
+Também podemos imprimir as 3 primeiras linhas do arquivo com o comando **head**:
+
+```bash
+head -n3 access.log
+```
+
+Podemos combinar o comando **cat** com o comando **cut** para extrairmos apenas a coluna representando o IP da máquina solicitante:
+
+```bash
+cat access.log | cut -d" " -f1
+```
+
+Podemos ainda combinar o *output* do cat e cut com os comandos `uniq -c` que irá contar o número de ocorrências repetidas e finalmente o `sort -nr` que irá ordenar os números em ordem reversa, dessa forma teremos os IPs com maior número de solicitações no topo.
+
+```bash
+cat access.log | cut -d" " -f1 | uniq -c | sort -nr
+```
+
+É possível também filtrarmos por *user-agent*, por exemplo:
+
+```bash
+cat access.log | grep "Chrome"
+cat access.log | grep "Firefox"
+```
+
+Até mesmo por IP:
+
+```bash
+cat access.log | grep "115.132.104.99"
+``` 
