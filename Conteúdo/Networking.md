@@ -461,6 +461,78 @@ A opção **-v** fornecerá informações adicionais sobre uma varredura conclu�
 nmap -v 192.168.0.10
 ```
 
+**lsof** é um comando que significa "*list open files*", ele é usado em muitos sistemas do tipo Unix para reportar uma lista de todos os arquivos abertos e os processos que os abriram.
+
+Para listar todos os arquivos abertos, execute o comando lsof sem nenhum argumento:
+
+```bash
+sudo lsof
+```
+
+Para determinarmos qual programa está escutando em uma porta específica podemos usar a opção **-i**, por exemplo:
+
+```bash
+sudo lsof -i :80
+sudo lsof -i :3306
+sudo lsof -i :80 | grep LISTEN
+```
+
+Que deve trazer um *output* similar a este:
+
+```
+apache2    1974     root    4u  IPv6  31541      0t0  TCP *:http (LISTEN)
+apache2    1986 www-data    4u  IPv6  31541      0t0  TCP *:http (LISTEN)
+apache2    1987 www-data    4u  IPv6  31541      0t0  TCP *:http (LISTEN)
+apache2    1988 www-data    4u  IPv6  31541      0t0  TCP *:http (LISTEN)
+apache2    1991 www-data    4u  IPv6  31541      0t0  TCP *:http (LISTEN)
+apache2    1992 www-data    4u  IPv6  31541      0t0  TCP *:http (LISTEN)
+```
+
+Podemos ainda obter uma lista completa dos processos com o comando:
+
+```bash
+sudo lsof -i -P -n | grep LISTEN
+```
+
+Agora, podemos obter mais informações sobre PID (*process identification number*):
+
+```bash
+ps aux | grep '[1]986'
+```
+
+Podemos usar o **ls** para descobrir o nome do processo associado ao PID **1986**:
+
+```bash
+sudo ls -l /proc/1986/exe
+```
+
+Também é possível combinarmos o **lsof** com outros comandos para nos apresentar apenas os sockets que escutam na porta 80 e então matá-los (*kill*) automaticamente:
+
+```bash
+sudo lsof -t -i tcp:80 -s tcp:listen | sudo xargs kill
+```
+
+O comando Unix **[fuser](https://en.wikipedia.org/wiki/Fuser_(Unix))** é usado para mostrar quais processos estão usando um arquivo do computador, sistema de arquivos ou [Unix socket](https://en.wikipedia.org/wiki/Unix_domain_socket).
+
+Para descobrirmos o PID dos processos que abriram a porta TCP 80, podemos contar com os seguintes comandos:
+
+```bash
+sudo fuser 80/tcp
+sudo fuser -v -n tcp 80
+```
+
+Podemos usar o fuser para matar (*kill*) um processo. Para matarmos um processo associado a uma determinada porta podemos usar:
+
+```bash
+fuser -k 80/tcp
+```
+
+Outro exemplo é eliminar todos os processos que acessam o diretório `/home` de alguma forma:
+
+```bash
+sudo fuser -km /home
+```
+
 ### Utilitários de Pesquisa de DNS
 
 O comando **host** é um utilitário simples para realizar pesquisas de DNS, ele traduz nomes de host em endereços IP e vice-versa.
