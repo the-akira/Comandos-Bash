@@ -782,3 +782,165 @@ Até mesmo por IP:
 ```bash
 cat access.log | grep "115.132.104.99"
 ``` 
+
+### O Protocolo Secure Shell (SSH)
+
+**[Secure Shell](https://www.digitalocean.com/community/tutorials/ssh-essentials-working-with-ssh-servers-clients-and-keys)** (SSH) é um protocolo criptográfico de rede para operar serviços de rede com segurança em uma rede não segura. Suas aplicações típicas incluem linha de comando remota, login e execução de comando remoto, mas qualquer serviço de rede pode ser protegido com SSH.
+
+- SSH fornece um canal seguro em uma rede não segura usando uma arquitetura cliente-servidor, conectando um aplicativo [cliente SSH](https://en.wikipedia.org/wiki/SSH_client) a um [servidor SSH](https://en.wikipedia.org/wiki/SSH_server). 
+
+- A especificação do protocolo distingue entre duas versões principais, conhecidas como SSH-1 e SSH-2. A porta TCP padrão para SSH é **22**. 
+
+- SSH geralmente é usado para acessar sistemas operacionais do tipo Unix, mas também pode ser usado no Microsoft Windows. O Windows 10 usa OpenSSH como seu cliente SSH padrão e servidor SSH.
+
+SSH foi projetado como um substituto para Telnet e para protocolos de shell remoto inseguros, como o rsh de Berkeley e os protocolos rlogin e rexec relacionados. Esses protocolos enviam informações, notadamente senhas, em texto simples, tornando-os suscetíveis à interceptação e divulgação usando *packet analysis*. A criptografia usada por SSH se destina a fornecer confidencialidade e integridade de dados em uma rede não segura, como a Internet, embora arquivos vazados por Edward Snowden indiquem que a *National Security Agency* (NSA) pode, às vezes, descriptografar o SSH, permitindo-lhes ler, modificar e suprimir seletivamente o conteúdo das sessões SSH.
+
+SSH usa [criptografia de chave pública](https://en.wikipedia.org/wiki/Public-key_cryptography) para **autenticar** o computador remoto e permitir que ele autentique o usuário, se necessário. Existem várias maneiras de usar o SSH; uma é usar pares de chaves públicas-privadas gerados automaticamente para simplesmente criptografar uma conexão de rede e, em seguida, usar a autenticação de senha para fazer login.
+
+Outra maneira é usar um par de chaves públicas-privadas geradas manualmente para realizar a **autenticação**, permitindo que usuários ou programas façam login sem precisar especificar uma senha. Nesse cenário, qualquer um pode produzir um par correspondente de chaves diferentes (públicas e privadas). A chave pública é colocada em todos os computadores que devem permitir acesso ao proprietário da chave privada correspondente (o proprietário mantém a chave privada em segredo). Embora a autenticação seja baseada na chave privada, a própria chave nunca é transferida pela rede durante a autenticação. O SSH verifica apenas se a mesma pessoa que oferece a chave pública também possui a chave privada correspondente. Em todas as versões do SSH, é importante verificar as chaves públicas desconhecidas, ou seja, associar as chaves públicas às identidades, antes de aceitá-las como válidas. Aceitar a chave pública de um invasor sem validação irá autorizar um invasor não autorizado como um usuário válido.
+
+#### Usos do SSH
+
+SSH é um protocolo que pode ser usado para muitas aplicações em muitas plataformas, incluindo a maioria das variantes do Unix (Linux, os BSDs, incluindo o macOS da Apple e Solaris), bem como o Microsoft Windows. 
+
+- Para fazer login em um shell em um host remoto (substituindo [Telnet](https://en.wikipedia.org/wiki/Telnet) e [rlogin](https://en.wikipedia.org/wiki/Rlogin))
+- Para executar um único comando em um host remoto (substituindo [rsh](https://en.wikipedia.org/wiki/Remote_shell))
+- Para configurar o login automático (sem senha) para um servidor remoto (por exemplo, usando [OpenSSH](https://en.wikipedia.org/wiki/OpenSSH))
+- Em combinação com o [rsync](https://en.wikipedia.org/wiki/Rsync) para fazer backup, copiar e espelhar arquivos com eficiência e segurança
+- Para [encaminhar](https://en.wikipedia.org/wiki/Port_forwarding) uma porta
+- Para usar como uma VPN criptografada completa. Observe que apenas o servidor e cliente OpenSSH oferecem suporte a esse recurso.
+- Para navegar na web através de uma conexão proxy criptografada com clientes SSH que suportam o protocolo [SOCKS](https://en.wikipedia.org/wiki/SOCKS).
+- Para montar com segurança um diretório em um servidor remoto como um sistema de arquivos em um computador local usando [SSHFS](https://en.wikipedia.org/wiki/SSHFS).
+- Para monitoramento e gerenciamento remoto automatizado de servidores por meio de um ou mais dos mecanismos discutidos acima.
+- Para desenvolvimento em um dispositivo móvel ou *embedded* que suporte SSH.
+- Para proteger protocolos de transferência de arquivos.
+
+##### Protocolos de Transferência de Arquivos
+
+Os protocolos Secure Shell são usados ​​em vários mecanismos de transferência de arquivos:
+
+- [Secure copy](https://en.wikipedia.org/wiki/Secure_copy) (SCP) que evoluiu do protocolo [RCP](https://en.wikipedia.org/wiki/Rcp_(Unix)) sob o SSH.
+- [rsync](https://en.wikipedia.org/wiki/Rsync), destinado a ser mais eficiente que o SCP. Geralmente é executado em uma conexão SSH.
+- [SSH File Transfer Protocol](https://en.wikipedia.org/wiki/SSH_File_Transfer_Protocol) (SFTP), uma alternativa segura ao FTP (não confundir com FTP sobre SSH ou FTPS)
+- [Fast and Secure Protocol](https://en.wikipedia.org/wiki/Fast_and_Secure_Protocol) (FASP), também conhecido como Aspera, usa SSH para controle e portas UDP para transferência de dados.
+
+#### Comunicação Client/Server
+
+- SSH é o Cliente
+- SSHD é o servidor (Open SSH Daemon)
+- O servidor deve ter SSHD instalado e executando
+
+Podemos usar o seguinte comando para instalar o SSHD:
+
+```bash
+sudo apt install openssh-server
+```
+
+Para verificarmos se o serviço está operando podemos usar um dos comandos a seguir:
+
+```bash
+systemctl status sshd
+service apache2 status
+```
+
+#### Métodos de Autenticação
+
+Exemplo de como é feita uma autenticação em um serviço SSH, utilizando um **usuário** e o **hostname** (usuário@hostname) e posteriormente informando a senha, caso esteja usando o mecanismo de autenticação por password.
+
+```
+ssh akira@192.168.0.10
+```
+
+As autenticações podem então ser feitas dos modos:
+
+- Senha (*Password*)
+- Par de chaves Pública/Privada
+
+#### Gerando Chaves
+
+Para gerarmos as chaves pública e privada de segurança devemos executar o seguinte comando:
+
+```bash
+ssh-keygen
+```
+
+As chaves SSH têm 2048 bits por padrão. Isso geralmente é considerado bom o suficiente para segurança, mas podemos especificar um número maior de bits para uma chave mais protegida.
+
+Para fazer isso, incluímos o argumento **-b** com o número de bits que desejamos. A maioria dos servidores oferece suporte a chaves com um comprimento de pelo menos 4096 bits. Chaves mais longas podem não ser aceitas para fins de proteção DDOS:
+
+```bash
+ssh-keygen -b 4096
+```
+
+Se uma chave diferente já foi criada, será perguntado se desejamos substituir a chave anterior: Se escolhermos “sim”, a chave anterior será substituída e não poderemos mais nos conectarmos aos servidores usando essa chave. Por isso, devemos nos certificar de substituir as chaves com cuidado.
+
+Elas serão então geradas e irão existir nos seguintes caminhos:
+
+- `~/.ssh/id_rsa` (Chave privada)
+- `~/.ssh/id_rsa.pub` (Chave pública)
+
+A chave pública deve estar presente no arquivo **authorized_keys** do servidor para garantir a permissão do cliente.
+
+#### Windows
+
+Observações sobre o Sistema Operacional Windows
+
+- Windows 10 atualmente possui SSH nativo
+- PUTTY é usado em versões antigas do Windows
+- Git Bash e outros programas de terminal incluem o comando SSH e outras ferramentas Unix
+
+#### Comandos
+
+##### Básico
+
+Os principais comandos SSH são respectivamente:
+
+```bash
+ssh {usuário}@{host}
+```
+
+Podemos por exemplo nos conectar ao host **bandit.labs.overthewire.org** com o usuário **bandit0** e a senha **bandit0**, com a opção **-p** podemos especificar a porta:
+
+```bash
+ssh bandit0@bandit.labs.overthewire.org -p 2220
+# Será pedido a senha = bandit0
+```
+
+##### Gerando Chaves e Configurando Acesso
+
+As chaves SSH são um meio seguro de nos conectarmos via SSH e podemos gerá-las com o seguinte comando:
+
+```bash
+ssh-keygen
+```
+
+Caso não especifiquemos um caminho, por padrão as chaves serão armazenadas em:
+
+- `~/.ssh/id_rsa` (Chave privada)
+- `~/.ssh/id_rsa.pub` (Chave pública)
+
+Podemos confirmar o conteúdo dos arquivos com os comandos:
+
+```bash
+cat ~/.ssh/id_rsa
+cat ~/.ssh/id_rsa.pub
+``` 
+
+Devemos agora copiar a **chave pública** para o servidor que desejamos usar, para isso podemos usar o seguinte comando:
+
+```bash
+cat ~/.ssh/id_rsa.pub | ssh akira@192.168.0.10 "mkdir -p ~/.ssh && chmod 700 ~/.ssh && cat >> ~/.ssh/authorized_keys"
+```
+
+Podemos também usar a ferramenta **scp** para copiarmos nossa chave para o servidor, veja que nesse caso específico enviamos para o servidor um arquivo com o nome `uploaded_key.pub` e agora devemos anexar o seu conteúdo ao arquivo `authorized_keys` para garantirmos a autorização do cliente:
+
+```bash
+scp ~/.ssh/id_rsa.pub akira@192.168.0.10:/home/akira/.ssh/uploaded_key.pub
+cat ~/.ssh/uploaded_key.pub >> ~/.ssh/authorized_keys
+```
+
+Nossa chave pública agora estará armazenada no arquivo `~/.ssh/authorized_keys` do servidor, a partir de agora não precisaremos mais de senha para autenticação.
+
+Para alterarmos as configurações do SSH podemos editar o arquivo `/etc/ssh/sshd_config`. Podemos por exemplo remover a permissão de login como **root** ao alterarmos `PermitRootLogin yes` para `PermitRootLogin no`.
+
+Depois de editar o arquivo devemos recarregar o SSHD com o comando `systemctl reload sshd`.
