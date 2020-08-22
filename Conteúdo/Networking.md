@@ -840,7 +840,7 @@ Para verificarmos se o serviço está operando podemos usar um dos comandos a se
 
 ```bash
 systemctl status sshd
-service apache2 status
+service sshd status
 ```
 
 #### Métodos de Autenticação
