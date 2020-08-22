@@ -852,3 +852,72 @@ fi
 ```
 
 Os scripts Bash apresentados nesse artigo podem ser encontrados no seguinte diretório **[Scripts](https://github.com/the-akira/Comandos-Bash/tree/master/Scripts)**
+
+## A Linguagem AWK
+
+**AWK** é uma [linguagem específica de domínio](https://en.wikipedia.org/wiki/Domain-specific_language) projetada para processamento de texto e tipicamente usada como uma ferramenta de extração de dados e relatório. É um recurso padrão da maioria dos sistemas operacionais do tipo Unix.
+
+A linguagem AWK é uma [linguagem de script](https://en.wikipedia.org/wiki/Scripting_language) [orientada a dados](https://en.wikipedia.org/wiki/Data-driven_programming) que consiste em um conjunto de ações a serem tomadas contra fluxos de dados textuais - sejam executados diretamente em arquivos ou usados ​​como parte de um [pipeline](https://en.wikipedia.org/wiki/Pipeline_(Unix)) - para fins de extração ou transformação de texto, como a produção formatada relatórios. 
+
+A linguagem usa extensivamente o tipo de dados string, matrizes associativas (ou seja, matrizes indexadas por cadeias de caracteres de chave) e expressões regulares. Embora o AWK tenha um domínio de aplicação específico e limitado e tenha sido projetado especialmente para oferecer suporte a [programas de uma linha](https://en.wikipedia.org/wiki/One-liner_program), a linguagem é [Turing-complete](https://en.wikipedia.org/wiki/Turing-complete).
+
+AWK foi criado no Bell Labs na década de 1970 e seu nome é derivado dos sobrenomes de seus autores: Alfred **A**ho, Peter **W**einberger e Brian **K**ernighan. A sigla é pronunciada da mesma forma que o pássaro [auk](https://en.wikipedia.org/wiki/Auk), que está na capa do livro [The AWK Programming Language](https://en.wikipedia.org/wiki/The_AWK_Programming_Language).
+
+### Estrutura dos Programas AWK
+
+<figure>
+    <blockquote>
+        <p>"AWK lê o input uma linha por vez. Uma linha é escaneada para cada padrão no programa, e para cada padrão que houver correspondência, a ação associada é executada."</p>
+        <footer>
+            <cite>— Alfred V. Aho</cite>
+        </footer>
+    </blockquote>
+</figure>
+
+Um programa AWK é uma série de pares de **ações** & **padrão**, escritos da seguinte maneira:
+
+```
+padrão { ação }
+```
+
+Em que **padrão** é normalmente uma expressão e **ação** é uma série de comandos. O *input* é dividido em registros, onde por padrão os registros são separados por caracteres de nova linha para que a entrada seja dividida em linhas. O programa testa cada registro em relação a cada uma das condições, por sua vez, e executa a ação para cada expressão verdadeira. A condição ou a ação podem ser omitidas. O padrão da condição é corresponder a todos os registros. 
+
+### Comandos
+
+Os comandos AWK são as instruções que substituem a **ação**. Os comandos AWK podem incluir chamadas de funções, atribuições de variáveis, cálculos ou qualquer combinação dos mesmos. AWK contém suporte integrado para muitas funções.
+
+**print**: O comando de *print* é usado para *output* de texto. O texto de *output* sempre termina com uma string predefinida chamada output record separator (ORS), cujo valor padrão é uma nova linha. A forma mais simples desse comando é:
+
+```bash
+echo "Hello World" | awk '{ print }' # Hello World
+```
+
+Exibe o conteúdo do registro atual. No AWK, os registros são divididos em campos e podem ser exibidos separadamente. 
+
+Por exemplo, o comando a seguir apresenta o primeiro campo do registro atual:
+
+```bash
+echo "Hello World" | awk '{ print $1 }' # Hello
+```
+
+Já o comando a seguir exibe o primeiro e o segundo campos do registro atual, separados por uma string predefinida chamada *output field separator* (OFS), cujo valor padrão é um único caractere de espaço.
+
+```bash
+echo "Hello World" | awk '{ print $1,$2 }' # Hello World
+```
+
+Embora esses campos (**$X**) possam ter semelhanças com variáveis, eles realmente se referem aos campos do registro atual. Um caso especial, **$0**, que se refere a todo o registro. De fato, os comandos `print` e `print $0` são idênticos em funcionalidade.
+
+As variáveis integradas do AWK incluem as variáveis de campo: **$1**, **$2**, **$3** e assim por diante (**$0** representa o registro inteiro). Elas contêm o texto ou valores nos campos de texto individuais em um registro.
+
+Outras variáveis incluem:
+
+- `NR: 'N'umber of' R'ecords`: mantém uma contagem atual do número de registros de *input* lidos até agora de todos os arquivos de dados. Ele começa do zero, mas nunca é redefinido automaticamente para zero.
+- `FNR: 'F'ile 'N'umber of 'R'ecords`: mantém uma contagem atual do número de registros de *input* lidos até o momento no arquivo atual. Esta variável é redefinida automaticamente para zero cada vez que um novo arquivo é iniciado.
+- `NF: 'N'umber of 'F'ields`: contém o número de campos no registro de *input* atual. O último campo no registro de entrada pode ser designado por **$NF**, o segundo ao último campo por **$(NF-1)**, o terceiro ao último campo por **$(NF-2)**, etc.
+- `FILENAME`: Contém o nome do arquivo de *input* atual.
+- `FS: 'F'ield 'S'eparator`: contém o caractere "separador de campo" usado para dividir os campos no registro de entrada. O padrão, "espaço em branco", inclui qualquer espaço e caracteres de tabulação. FS pode ser reatribuído a outro caractere para alterar o separador de campo.
+- `RS: 'R'ecord 'S'eparator`: armazena o caractere "separador de registro" atual. Como, por padrão, uma *input line* é o registro de *input*, o caractere separador de registro padrão é uma "nova linha".
+- `OFS: 'O'output 'F'ield 'S'eparator`: armazena o "separador de campo de saída", que separa os campos quando o AWK os imprime. O padrão é um caractere de "espaço".
+- `ORS: 'O'utput 'R'ecord 'S'eparator`: armazena o "separador de registro de saída", que separa os registros de saída quando o Awk os imprime. O padrão é um caractere de "nova linha".
+- `OFMT: 'O'utput 'F'or'M'a'T`: armazena o formato para saída numérica. O formato padrão é `"%.6g"`.
