@@ -881,6 +881,14 @@ AWK nos possibilita executar uma quantidade infinita de tarefas. Como por exempl
 
 ### Estrutura dos Programas AWK
 
+AWK segue um *workflow* simples - **Ler**, **Executar** e **Repetir**, como descrito no diagrama a seguir.
+
+![img](https://i.ibb.co/PT8y0Rf/awk.png)
+
+- **Read**: AWK lê uma linha do *input stream* (arquivo, pipe ou stdin) e a armazena na memória.
+- **Excute**: Todos os comandos AWK são aplicados sequencialmente no *input*. Por padrão, o AWK executa comandos em todas as linhas. Podemos restringir isso fornecendo padrões.
+- **Repeat**: Este processo se repete até que o arquivo chegue ao fim.
+
 <figure>
     <blockquote>
         <p>"AWK lê o input uma linha por vez. Uma linha é escaneada para cada padrão no programa, e para cada padrão que houver correspondência, a ação associada é executada."</p>
@@ -897,6 +905,36 @@ padrão { ação }
 ```
 
 Em que **padrão** é normalmente uma expressão e **ação** é uma série de comandos. O *input* é dividido em registros, onde por padrão os registros são separados por caracteres de nova linha para que a entrada seja dividida em linhas. O programa testa cada registro em relação a cada uma das condições, por sua vez, e executa a ação para cada expressão verdadeira. A condição ou a ação podem ser omitidas. O padrão da condição é corresponder a todos os registros. 
+
+#### Bloco BEGIN
+
+A sintaxe do bloco BEGIN é a seguinte:
+
+```
+BEGIN { comandos }
+``` 
+
+O bloco BEGIN é executado na inicialização do programa. Ele é executado apenas uma vez. Este é um bom lugar para inicializar variáveis. BEGIN é uma palavra-chave AWK e, portanto, deve estar em maiúsculas. Este bloco é opcional.
+
+#### Bloco Body
+
+A sintaxe do bloco body (corpo) é a seguinte:
+
+```
+/padrão/ { comandos }
+```
+
+O bloco body aplica comandos AWK em cada linha de *input*. Por padrão, o AWK executa comandos em todas as linhas. Podemos restringir isso fornecendo padrões. Observe que não há palavras-chave para o bloco Body.
+
+#### Bloco END
+
+A sintaxe do bloco END é a seguinte:
+
+```
+END { comandos }
+```
+
+O bloco END é executado no final do programa. END é uma palavra-chave AWK e, portanto, deve estar em maiúsculas. Este bloco é opcional.
 
 ### Comandos
 
