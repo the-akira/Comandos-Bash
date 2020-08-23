@@ -863,6 +863,22 @@ A linguagem usa extensivamente o tipo de dados string, matrizes associativas (ou
 
 AWK foi criado no Bell Labs na década de 1970 e seu nome é derivado dos sobrenomes de seus autores: Alfred **A**ho, Peter **W**einberger e Brian **K**ernighan. A sigla é pronunciada da mesma forma que o pássaro [auk](https://en.wikipedia.org/wiki/Auk), que está na capa do livro [The AWK Programming Language](https://en.wikipedia.org/wiki/The_AWK_Programming_Language).
 
+### Tipos de AWK
+
+Existem também algumas variações da linguagem AWK, podemos citar por exemplo:
+
+- **[NAWK](https://linux.die.net/man/1/nawk)**: Nova versão que traz melhorias e funcionalidades novas
+- **[GAWK](https://www.gnu.org/software/gawk/manual/gawk.html)**: É o GNU AWK, disponível nas distribuições GNU/Linux, compatível com AWK e NAWK.
+
+### Usos de AWK
+
+AWK nos possibilita executar uma quantidade infinita de tarefas. Como por exemplo:
+
+- Processamento de Textos
+- Produção de relatórios de texto formatados
+- Executar operações aritméticas
+- Executar operações em strings
+
 ### Estrutura dos Programas AWK
 
 <figure>
@@ -921,3 +937,257 @@ Outras variáveis incluem:
 - `OFS: 'O'output 'F'ield 'S'eparator`: armazena o "separador de campo de saída", que separa os campos quando o AWK os imprime. O padrão é um caractere de "espaço".
 - `ORS: 'O'utput 'R'ecord 'S'eparator`: armazena o "separador de registro de saída", que separa os registros de saída quando o Awk os imprime. O padrão é um caractere de "nova linha".
 - `OFMT: 'O'utput 'F'or'M'a'T`: armazena o formato para saída numérica. O formato padrão é `"%.6g"`.
+
+### Exemplos 
+
+Para estes exemplos vamos explorar o arquivo **[cavaleiros.txt](https://github.com/the-akira/Comandos-Bash/blob/master/Arquivos/cavaleiros.txt)**, que conta com o seguinte conteúdo:
+
+```
+Seiya Pégaso 100
+Shiryu Dragão 98
+Hyoga Cisne 96
+Shun Andrômeda 94
+Ikki Fênix 99
+Jabu Unicórnio 87
+Marin Águia 92
+Algol Perseu 95
+Mu Áries 100
+Shaka Virgem 100
+Aiolos Sagitário 100
+```
+
+Se eventualmente quisermos saber a versão de AWK, podemos executar:
+
+```bash
+awk --version
+```
+
+Imprimindo todo o conteúdo do arquivo
+
+```bash
+awk '{ print }' cavaleiros.txt
+awk '{ print $0 }' cavaleiros.txt
+```
+
+Imprimindo exclusivamente apenas a primeira (**$1**) ou segunda (**$2**) coluna
+
+```bash
+awk '{ print $1 }' cavaleiros.txt
+awk '{ print $2 }' cavaleiros.txt
+```
+
+Imprimindo ambas as colunas, usamos a `,` para indicar que queremos um espaço (separador padrão) entre as colunas
+
+```bash
+awk '{ print $1,$2 }' cavaleiros.txt
+```
+
+Podemos concatenar as colunas (unir elas) com os seguintes comandos
+
+```bash
+awk '{ print $1.$2 }' cavaleiros.txt
+awk '{ print $1$2 }' cavaleiros.txt
+```
+
+Até mesmo transformar o separador delas para uma vírgula, como é comum nos arquivos **csv**:
+
+```bash
+awk '{ print $1","$2","$3 }' cavaleiros.txt
+```
+
+A variável **OFS** também nos permite especificar o separador:
+
+```bash
+awk 'BEGIN {OFS=","} {print $1,$2,$3}' cavaleiros.txt
+```
+
+A variável **NR** nos possibilita exibir o número de linhas em um texto, por exemplo:
+
+```bash
+awk '{ print NR,$1,$2 }' cavaleiros.txt
+```
+
+O que também nos permite limitar as linhas que queremos exibir, no exemplo a seguir estamos exibindo a linha **1** até a linha **5**:
+
+```bash
+awk 'NR==1, NR==5 { print $0 }' cavaleiros.txt
+```
+
+Já a variável **NF** pode ser usada para sabermos o número de campos em cada linha:
+
+```bash
+awk '{ print NF }' cavaleiros.txt
+```
+
+AWK suporta expressões regulares, imagine que queremos retornar todas as linhas que contenham pelo menos uma palavra que comece com a letra **S**:
+
+```bash
+awk '/S/ { print }' cavaleiros.txt
+```
+
+Se quisermos selecionar apenas as linhas em que a primeira palavra comece com a letra **S** podemos usar:
+
+```bash
+awk '/^S/ { print }' cavaleiros.txt
+```
+
+Para invertermos a seleção acima e selecionarmos apenas os nomes que não comecem com a letra **S**, podemos usar o caracter `!`, por exemplo:
+
+```bash
+awk '!/^S/ { print }' cavaleiros.txt
+```
+
+Podemos usar condicionais em AWK, por exemplo, se quisermos apresentar somente as linhas que contenham um valor maior que **96**:
+
+```bash
+awk '{ if($3 > 96) print }' cavaleiros.txt
+```
+
+Ou somente as linhas com valores menores iguais a **95**:
+
+```bash
+awk '{ if($3 <= 95) print }' cavaleiros.txt
+```
+
+Também estamos aptos a expressar múltiplas condições, nesse exemplo estamos imprimindo apenas os cavaleiros que tenham o nome começando com **Sh** e possuam Energia superior à 94:
+
+```bash
+awk '/^Sh/ && $3 > 94 { print $1 }' cavaleiros.txt
+```
+
+AWK nos permite usar funções, somos capazes por exemplo de calcular o comprimento de uma string com a função **length()**, podemos usá-la para calcular o *length* de todos os valores da primeira coluna e imprimir o resultado do lado dela, na segunda coluna.
+
+```bash
+awk '{ print $1,length($1) }' cavaleiros.txt
+```
+
+Podemos realizar operações nos valores de uma coluna, por exemplo, multiplicar todos eles por um determinado número:
+
+```bash
+awk '{ print $1,$3*0.5 }' cavaleiros.txt
+```
+
+É possível até mesmo concatenar uma string:
+
+```bash
+awk '{ print $1,$3,"de Energia" }' cavaleiros.txt
+```
+
+Como toda linguagem de programação, AWK nos permite realizar operações matemáticas:
+
+- `+`: Adição
+- `-`: Subtração
+- `*`: Multiplicação
+- `/`: Divisão
+- `%`: Resto de divisão
+
+```bash
+awk 'BEGIN { print 10+3 }' # 13
+awk 'BEGIN { print 10-3 }' # 7
+awk 'BEGIN { print 10*3 }' # 30
+awk 'BEGIN { print 10/3 }' # 3.33333
+awk 'BEGIN { print 10%3 }' # 1
+```
+
+Comparar valores `1 = True/Verdadeiro` / `0 = False/Falso`:
+
+```bash
+awk 'BEGIN { print 'x' == 'x' }' # 1
+awk 'BEGIN { print 1 == 1 }' # 1
+awk 'BEGIN { print 5 != 2 }' # 1
+awk 'BEGIN { print 4 >= 1 }' # 1
+awk 'BEGIN { print 3 < 1 }' # 0
+```
+
+AWK também conta com Loops como **For** e **While**
+
+```bash
+awk 'BEGIN { for(i=1;i<=10;i++) print "Quadrado de", i"²", "=",i*i; }'
+awk 'BEGIN { soma=0; for(i=0; i<10; i++) soma+=i; print soma; ++i }'
+awk 'BEGIN { i=10; while(i <= 20) { print i/2; ++i } }'
+```
+
+Com o **For** somos capazes, por exemplo, de calcular a frequência de palavras em um determinado arquivo:
+
+```bash
+awk '{ a[$1]++ }END{ for(i in a) print a[i],i }' RS=" |\n" cavaleiros.txt | sort -r
+```
+
+AWK possui funções de String integradas que nos auxiliam na manipulação de texto, vejamos alguns exemplos:
+
+```bash
+awk 'BEGIN { nome="GABRIEL"; { print tolower(nome) } }' # gabriel
+awk 'BEGIN { nome="Gabriel"; { print toupper(nome) } }' # GABRIEL
+awk 'BEGIN { nome="Gabriel"; sub("Gabri","Rafa",nome); { print nome } }' # Rafael
+```
+
+A função **sub()** é excelente para fazermos substituições em arquivos, se quisermos por exemplo trocar **Sh** por **Z** em `cavaleiros.txt`:
+
+```bash
+awk '{ sub(/Sh/, "Z"); print }' cavaleiros.txt
+```
+
+AWK também possui funções que nos permitem trabalhar com data e tempo, **strftime()** é capaz de formatar *timestamps* de acordo com a especificação de formato, por exemplo:
+
+```bash
+awk 'BEGIN { print strftime("Horário Atual = %d/%m/%Y %H:%M:%S", systime()) }'
+```
+
+O comando acima imprime a data de hoje e o horário atual de nosso sistema.
+
+Como qualquer outra expressão, a chamada de função tem um valor, geralmente chamado de valor de retorno, que é calculado pela função com base nos argumentos que você fornece. Neste exemplo, o valor de retorno de `sqrt(argumento)` é a raiz quadrada do argumento. O programa a seguir lê números, um número por linha, e imprime a raiz quadrada de cada um:
+
+```bash
+awk '{ print "Raíz quadrada de", $1, "=", sqrt($1) }'
+```
+
+Voltando ao arquivo `cavaleiros.txt`, se quisermos ordenar os cavaleiros por nome, podemos passar o comando **print** para o **sort** e assim ordená-los em ordem alfabética.
+
+```bash
+awk '{ print | "sort" }' cavaleiros.txt
+```
+
+O exemplo a seguir mostra como usar o comando **printf** para fazer uma tabela alinhada:
+
+```bash
+awk '{ printf "%-13s %-13s %4s\n", $1,$2,$3 }' cavaleiros.txt
+```
+
+Imagine que queremos agora somar a energia de todos os cavaleiros (terceira coluna), é possível usarmos uma variável para resolver esse problema, inicializamos ela com **0** e somamos o valor de cada linha, por exemplo:
+
+```bash
+awk 'BEGIN { soma=0 } { soma=soma+$3 } END { print soma }' cavaleiros.txt
+``` 
+
+Se eventualmente precisarmos escrever um script maior, que venha a ocupar mais linhas, podemos escrevê-lo em um arquivo separado, nesse exemplo chamerei o arquivo de `script.awk`:
+
+```bash
+BEGIN {
+
+Titulo="Os Cavaleiros do Zodíaco"
+
+Coluna1="Nome"
+Coluna2="Signo"
+Coluna3="Energia"
+
+printf "%s\n", Titulo
+print "-----------------------------------"
+printf "%-13s %-13s %s\n", Coluna1, Coluna2, Coluna3
+
+}
+
+{ printf "%-13s %-13s %6s\n", $1,$2,$3 | "sort -k3" }
+
+END {
+
+print "-----------------------------------"
+print "Total de cavaleiros:", NR
+
+}
+```
+
+Para executá-lo é muito simples:
+
+```bash
+awk -f script.awk cavaleiros.txt
+```
