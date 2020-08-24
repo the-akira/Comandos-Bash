@@ -1057,6 +1057,12 @@ Já a variável **NF** pode ser usada para sabermos o número de campos em cada 
 awk '{ print NF }' cavaleiros.txt
 ```
 
+Se usarmos **$** com NF, podemos imprimir o último campo de cada linha de nosso arquivo:
+
+```bash
+awk '{ print $NF }' cavaleiros.txt
+```
+
 AWK suporta expressões regulares, imagine que queremos retornar todas as linhas que contenham pelo menos uma palavra que comece com a letra **S**:
 
 ```bash
@@ -1085,6 +1091,12 @@ Ou somente as linhas com valores menores iguais a **95**:
 
 ```bash
 awk '{ if($3 <= 95) print }' cavaleiros.txt
+```
+
+Veja que é possível estabelecermos uma condição sem o uso do **if**:
+
+```bash
+awk '$3 == 100 { print }' cavaleiros.txt
 ```
 
 Também estamos aptos a expressar múltiplas condições, nesse exemplo estamos imprimindo apenas os cavaleiros que tenham o nome começando com **Sh** e possuam Energia superior à 94:
@@ -1197,6 +1209,12 @@ Imagine que queremos agora somar a energia de todos os cavaleiros (terceira colu
 awk 'BEGIN { soma=0 } { soma=soma+$3 } END { print soma }' cavaleiros.txt
 ``` 
 
+Também podemos contar o número de cavaleiros incrementando uma variável **c**:
+
+```bash
+awk '{ c = c +1 } END { printf("Encontrados %d cavaleiros\n", c) }' cavaleiros.txt 
+```
+
 Se eventualmente precisarmos escrever um script maior, que venha a ocupar mais linhas, podemos escrevê-lo em um arquivo separado, nesse exemplo chamerei o arquivo de `script.awk`:
 
 ```bash
@@ -1228,4 +1246,72 @@ Para executá-lo é muito simples:
 
 ```bash
 awk -f script.awk cavaleiros.txt
+```
+
+Agora vamos aperfeiçoar nosso script de forma que ele possa computar a soma das Energias dos cavaleiros para assim calcularmos a média de energia:
+
+```bash
+{ energia = energia + $3 }
+
+{ printf "%-13s %-13s %6s %6d\n", $1,$2,$3,energia }
+
+END {
+	print "-----------------------------------------"
+	print "Total cavaleiros =", NR
+	print "Energia total =", energia
+	print "Energia média =", energia/NR
+}
+```
+
+Executamos o script com o comando `awk -f media.awk cavaleiros.txt`.
+
+AWK nos possibilita concatenar o nome de todos os cavaleiros com muita facilidade, para isso podemos usar um simples script:
+
+```bash
+{ nomes = nomes $1 " " }
+END { print nomes }
+```
+
+Executamos ele com o comando `awk -f concat.awk cavaleiros.txt` e obteremos todos os nomes concatenados da seguinte forma:
+
+```
+Seiya Shiryu Hyoga Shun Ikki Jabu Marin Algol Mu Shaka Aiolos
+```
+
+AWK suporta [Arrays](https://www.gnu.org/software/gawk/manual/html_node/Arrays.html) e com eles podemos por exemplo inverter as linhas de nosso arquivo, em que o último registro se tornará o primeiro, o penúltimo o segundo e assim por diante:
+
+```bash
+{ arr[NR] = $0 }
+
+END {
+	i = NR
+	for(i=NR; i > 0; i--)
+	{
+		print arr[i]
+	}
+}
+```
+
+A função **rand()** retorna um número aleatório. Os valores de **rand()** são uniformemente distribuídos entre zero e um. O valor pode ser zero, mas nunca um.
+
+```bash
+awk 'BEGIN { print rand() }'
+```
+
+O exemplo a seguir usa uma função para produzir números inteiros aleatórios entre um e n. Este programa imprime um novo número aleatório para cada registro de entrada:
+
+```bash
+# Função para rolar um dado simulado
+# n -> número de lados
+function dado(n) { return 1 + int(rand() * n) }
+
+# Rolamos 2 vezes um dado de 6 lados
+# Imprimos a soma de pontos
+BEGIN { print dado(6) + dado(6) } 
+```
+
+**Importante**: Na maioria das implementações do awk, incluindo gawk, **rand()** começa a gerar números a partir do mesmo número inicial, ou *seed*, cada vez que você executa o awk, sendo assim, um programa gera os mesmos resultados cada vez que você o executa.
+
+```bash
+awk -f dados.awk
 ```
