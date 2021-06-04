@@ -175,7 +175,7 @@ A construção **while** loop é usada para executar instruções várias vezes 
 i=0
 while [ $i -le 10 ]
 do
-	echo "Número: $i" 
+    echo "Número: $i" 
 ((i++))
 done
 ```
@@ -223,7 +223,7 @@ Podemos iterar no estilo C, usando um valor inicial para **i**, uma condição d
 
 for (( i=1; i<=13; i++ ))
 do
-	echo -n "$i "
+    echo -n "$i "
 done
 ```
 
@@ -234,7 +234,7 @@ Também podemos iterar sob o resultado de um comando como o **ls**, por exemplo:
 ```bash
 for i in $(ls)
 do
-	echo "$i"
+    echo "$i"
 done
 ```
 
@@ -280,9 +280,9 @@ read n
 
 if [[ ( $n -eq 13 || $n -eq 27 ) ]]
 then
-	echo "Número vencedor"
+    echo "Número vencedor"
 else
-	echo "Número incorreto!"
+    echo "Número incorreto!"
 fi
 ```
 
@@ -323,12 +323,12 @@ read num
 
 if [[ ( $num -ge 0 ) && ( $num%2 -eq 0 ) ]]
 then
-	echo "Número é par e positivo"
+    echo "Número é par e positivo"
 elif [[ (( $num -lt 0 )) ]]
 then 
-	echo "Número é negativo"
+    echo "Número é negativo"
 else
-	echo "Número é ímpar"
+    echo "Número é ímpar"
 fi
 ```
 
@@ -498,8 +498,8 @@ Podemos usar um **for** loop para calcular a soma de uma sequência de números:
 soma=0
 for (( i=1; i<=36; i++ ))
 do
-	(( soma+=i ))
-	echo -n "$i "
+    (( soma+=i ))
+    echo -n "$i "
 done
 printf "\n"
 echo "Total = $soma"
@@ -520,15 +520,15 @@ Como em muitas linguagens de programação, as funções desempenham um papel es
 #!/bin/bash
 
 function Quadrado() {
-	echo Função $FUNCNAME!
-	echo -n "Informe um número -> "
-	read x
-	echo "$x² = $(( x**2 ))"
+    echo Função $FUNCNAME!
+    echo -n "Informe um número -> "
+    read x
+    echo "$x² = $(( x**2 ))"
 }
 
 function Soma {
-	(( x=$1+$2 )) 
-	echo "$1 + $2 = $x"
+    (( x=$1+$2 )) 
+    echo "$1 + $2 = $x"
 }
 
 Quadrado
@@ -555,10 +555,10 @@ read dir
 
 if [ -d "$dir" ]
 then
-	echo "Diretório já existente"
+    echo "Diretório já existente"
 else
-	`mkdir $dir`
-	echo "Diretório criado com sucesso!"
+    `mkdir $dir`
+    echo "Diretório criado com sucesso!"
 fi
 ```
 
@@ -599,8 +599,8 @@ filename='files/editores.txt'
 n=1
 cat $filename | while read line || [[ -n $line ]]
 do
-	echo "Linha $n -> $line"
-	n=$((n+1))
+    echo "Linha $n -> $line"
+    n=$((n+1))
 done
 ```
 
@@ -613,9 +613,9 @@ Para checarmos se um determinado arquivo existe em nossa máquina podemos utiliz
 
 filename=$1
 if [ -f "$filename" ]; then
-	echo "Arquivo existe"
+    echo "Arquivo existe"
 else
-	echo "Arquivo não existe"
+    echo "Arquivo não existe"
 fi
 ```
 
@@ -700,7 +700,7 @@ O exemplo a seguir aplicará a extensão `.py` a todos os arquivos dentro do dir
 # Altera a extensão dos arquivos para .py
 for file in `ls $1/*`
 do
-	mv $file $file.py
+    mv $file $file.py
 done
 ```
 
@@ -723,11 +723,11 @@ O script bash a seguir é capaz de encontrar o número de arquivos e diretórios
 # encontra o número de arquivos ou diretórios 
 # presentes em um determinado diretório.
 if [ -d "$@" ]; then
-	echo "Arquivos encontrados: $(find "$@" -type f | wc -l)"
-	echo "Diretórios encontrados: $(find "$@" -type d | wc -l)"
+    echo "Arquivos encontrados: $(find "$@" -type f | wc -l)"
+    echo "Diretórios encontrados: $(find "$@" -type d | wc -l)"
 else
-	echo "Erro. Informe outro diretório."
-	exit 1
+    echo "Erro. Informe outro diretório."
+    exit 1
 fi
 ```
 
@@ -764,9 +764,9 @@ ROOT_UID=0
 
 if [ "$UID" -eq "$ROOT_UID" ]
 then
-	echo "You are root."
+    echo "You are root."
 else
-	echo "You are not root"
+    echo "You are not root"
 fi
 exit 0
 ```
@@ -819,13 +819,13 @@ echo $elemento1, $elemento2, $elemento3
 # Percorrendo todos os elementos com for
 for i in "${arquivos[@]}"
 do
-	echo $i
+    echo $i
 done
 
 # Percorrendo todos os elementos com for
 for (( i=0; i<$tamanho_array; i++))
 do
-	echo ${arquivos[${i}]}
+    echo ${arquivos[${i}]}
 done
 ```
 
@@ -847,7 +847,7 @@ Neste exemplo se o comando **ping** executar com sucesso então executaremos o c
 
 ```bash
 if ping -c 1 google.com; then
-  echo "Internet está operando."
+    echo "Internet está operando."
 fi
 ```
 
@@ -1256,10 +1256,10 @@ Agora vamos aperfeiçoar nosso script de forma que ele possa computar a soma das
 { printf "%-13s %-13s %6s %6d\n", $1,$2,$3,energia }
 
 END {
-	print "-----------------------------------------"
-	print "Total cavaleiros =", NR
-	print "Energia total =", energia
-	print "Energia média =", energia/NR
+    print "-----------------------------------------"
+    print "Total cavaleiros =", NR
+    print "Energia total =", energia
+    print "Energia média =", energia/NR
 }
 ```
 
@@ -1284,11 +1284,11 @@ AWK suporta [Arrays](https://www.gnu.org/software/gawk/manual/html_node/Arrays.h
 { arr[NR] = $0 }
 
 END {
-	i = NR
-	for(i=NR; i > 0; i--)
-	{
-		print arr[i]
-	}
+    i = NR
+    for(i=NR; i > 0; i--)
+    {
+        print arr[i]
+    }
 }
 ```
 
