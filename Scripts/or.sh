@@ -5,7 +5,7 @@ read n
 
 if [[ ( $n -eq 13 || $n -eq 27 ) ]]
 then
-	echo "Número vencedor"
+    echo "Número vencedor"
 else
-	echo "Número incorreto!"
+    echo "Número incorreto!"
 fi

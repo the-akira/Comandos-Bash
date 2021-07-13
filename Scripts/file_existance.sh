@@ -2,7 +2,7 @@
 
 filename=$1
 if [ -f "$filename" ]; then
-	echo "Arquivo existe"
+    echo "Arquivo existe"
 else
-	echo "Arquivo não existe"
+    echo "Arquivo não existe"
 fi

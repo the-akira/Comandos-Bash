@@ -17,11 +17,11 @@ echo $elemento1, $elemento2, $elemento3
 # Percorrendo todos os elementos com for
 for i in "${arquivos[@]}"
 do
-	echo $i
+    echo $i
 done
 
 # Percorrendo todos os elementos com for
 for (( i=0; i<$tamanho_array; i++))
 do
-	echo ${arquivos[${i}]}
+    echo ${arquivos[${i}]}
 done
