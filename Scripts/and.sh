@@ -5,10 +5,10 @@ read num
 
 if [[ ( $num -ge 0 ) && ( $num%2 -eq 0 ) ]]
 then
-	echo "Número é par e positivo"
+    echo "Número é par e positivo"
 elif [[ (( $num -lt 0 )) ]]
 then 
-	echo "Número é negativo"
+    echo "Número é negativo"
 else
-	echo "Número é ímpar"
+    echo "Número é ímpar"
 fi
