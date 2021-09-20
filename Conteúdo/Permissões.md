@@ -31,7 +31,7 @@ Podemos observar que:
 
 Na imagem abaixo, nós podemos ver como as permissões são interpretadas. Basicamente ela consiste de um caracter indicando o tipo do arquivo (**d** para diretório, **-** para outros arquivos), seguido por **três conjuntos** de **três caracteres** que consistem das permissões de **ler**, **escrever** e **executar** um arquivo para o **owner**, **grupo** e **todos os demais**.
 
-![img](https://i.ibb.co/ZWRWGNy/permissions.png)
+![img](https://raw.githubusercontent.com/the-akira/Comandos-Bash/master/Imagens/permissoes.png)
 
 Cada caracter representa então uma permissão diferente, por exemplo:
 
