@@ -2,7 +2,7 @@
 
 Linux ou sistemas do tipo Unix têm o que é conhecido como “*standard streams of data*”. Qualquer processo executado em tais sistemas é inicializado com três fluxos de dados: *standard ouput*, *standard input* e *standard error*. 
 
-![img](https://i.ibb.co/PCRTC9t/datastreams.png)
+![img](https://raw.githubusercontent.com/the-akira/Comandos-Bash/master/Imagens/datastreams.png)
 
 ## Standard Out (stdout)
 

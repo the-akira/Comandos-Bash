@@ -48,7 +48,7 @@ O modelo é produto do projeto Open Systems Interconnection da [International Or
 
 A recomendação X.200 descreve sete camadas, rotuladas de 1 a 7. A camada 1 é a camada mais baixa neste modelo.
 
-![img](https://i.ibb.co/R39zdSq/OSI.png)
+![img](https://raw.githubusercontent.com/the-akira/Comandos-Bash/master/Imagens/OSI.png)
 
 #### Camada 1: Camada Física
 

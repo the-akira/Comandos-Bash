@@ -883,7 +883,7 @@ AWK nos possibilita executar uma quantidade infinita de tarefas. Como por exempl
 
 AWK segue um *workflow* simples - **Ler**, **Executar** e **Repetir**, como descrito no diagrama a seguir.
 
-![img](https://i.ibb.co/nMqT5fS/awk2.png)
+![img](https://raw.githubusercontent.com/the-akira/Comandos-Bash/master/Imagens/awk2.png)
 
 - **Read** (Ler): AWK lê uma linha do *input stream* (arquivo, pipe ou stdin) e a armazena na memória.
 - **Execute** (Executar): Todos os comandos AWK são aplicados sequencialmente no *input*. Por padrão, o AWK executa comandos em todas as linhas. Podemos restringir isso fornecendo padrões.

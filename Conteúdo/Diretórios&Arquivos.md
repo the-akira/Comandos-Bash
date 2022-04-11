@@ -4,7 +4,7 @@ Tudo no Linux é um arquivo. Cada arquivo é organizado em uma árvore de diret�
 
 A imagem a seguir apresenta um exemplo de como é a árvore de diretórios:
 
-![img](https://i.ibb.co/1fwpyBC/linux-filesystem-2.png)
+![img](https://raw.githubusercontent.com/the-akira/Comandos-Bash/master/Imagens/linux-filesystem%202.png)
 
 ## Estrutura de Diretórios
 

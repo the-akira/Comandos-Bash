@@ -1,6 +1,6 @@
 # GNU, Unix & Linux
 
-![img](https://i.ibb.co/KXGYgBs/Gn-Unix-Linux.png)
+![img](https://raw.githubusercontent.com/the-akira/Comandos-Bash/master/Imagens/GnUnixLinux.png)
 
 Para compreendermos como o **[Linux](https://en.wikipedia.org/wiki/Linux)** surgiu, devemos retornar ao início de 1969, quando [Ken Thompson](https://en.wikipedia.org/wiki/Ken_Thompson) e [Dennis Ritchie](https://en.wikipedia.org/wiki/Dennis_Ritchie), do [Bell Laboratories](https://en.wikipedia.org/wiki/Bell_Labs), desenvolveram o sistema operacional [Unix](https://en.wikipedia.org/wiki/Unix). Posteriormente, foi reescrito em [C](https://en.wikipedia.org/wiki/C_(programming_language)) para torná-lo mais portátil e, eventualmente, se tornou um sistema operacional amplamente utilizado.
 
@@ -44,7 +44,7 @@ O GNU [userland](https://en.wikipedia.org/wiki/Userland_(computing)) é uma part
 
 A figura a seguir apresenta várias camadas dentro do Linux, também mostrando separação entre o [userland](https://en.wikipedia.org/wiki/User_space) e o [kernel space](https://en.wikipedia.org/wiki/Kernel_space):
 
-![img](https://i.ibb.co/KjWwMcZ/linux-layers.png)
+![img](https://raw.githubusercontent.com/the-akira/Comandos-Bash/master/Imagens/linux_layers.png)
 
 Os componentes instalados de um sistema Linux incluem o seguinte:
 

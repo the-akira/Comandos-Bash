@@ -10,7 +10,7 @@ O Bourne shell não estava disponível gratuitamente na época, o que limitava s
 
 O Bash é um processador de comandos que normalmente é executado em uma janela de texto em que o usuário digita comandos que causam ações. O Bash também pode ler e executar comandos de um arquivo, chamado de shell script. Como todos os shells do Unix, ele suporta *filename [globbing](https://en.wikipedia.org/wiki/Glob_(programming))* (wildcard matching), *[piping](https://en.wikipedia.org/wiki/Pipeline_(Unix))*, *[here documents](https://en.wikipedia.org/wiki/Here_document)*, *[command substitution](https://en.wikipedia.org/wiki/Command_substitution)*, *[variáveis](https://en.wikipedia.org/wiki/Variable_(programming))*, e *[estruturas de controle](https://en.wikipedia.org/wiki/Control_flow)* para *[condition-testing](https://en.wikipedia.org/wiki/Conditional_(programming))* e *[iteration](https://en.wikipedia.org/wiki/Iteration)*.
 
-![img](https://i.ibb.co/nj2LVTf/shell.png)
+![img](https://raw.githubusercontent.com/the-akira/Comandos-Bash/master/Imagens/shell.png)
 
 ## Comandos Básicos
 

@@ -49,7 +49,7 @@ Um [kernel](https://en.wikipedia.org/wiki/Kernel_(computing)) do sistema operaci
 
 A imagem a seguir representa os vários estados do processo, exibidos em um diagrama de estados, com setas indicando possíveis transições entre estados.
 
-![img](https://i.ibb.co/ZLzLZT4/Process-states.png)
+![img](https://raw.githubusercontent.com/the-akira/Comandos-Bash/master/Imagens/Process_states.png)
 
 ## Rastreando Processos com top
 
@@ -57,7 +57,7 @@ A imagem a seguir representa os vários estados do processo, exibidos em um diag
 
 Pressione **H** para acessar uma página que explica brevemente as opções principais para personalizar o programa.
 
-![img](https://i.ibb.co/m4KLnQ3/top.png)
+![img](https://raw.githubusercontent.com/the-akira/Comandos-Bash/master/Imagens/top.png)
 
 Vamos então interpretar o significado do *output* do top
 
@@ -308,7 +308,7 @@ systemctl restart mysql
 
 O [htop](https://hisham.hm/htop/) é um *[system-monitor](https://en.wikipedia.org/wiki/System_monitor)*, visualizador de processos e gerenciador de processos. 
 
-![img](https://i.ibb.co/qC1G1bW/htop.png)
+![img](https://raw.githubusercontent.com/the-akira/Comandos-Bash/master/Imagens/htop.png)
 
 Ele foi desenvolvido como uma alternativa ao programa **top** do Unix. Ele mostra uma lista atualizada com frequência dos processos em execução no computador, normalmente ordenadas pela quantidade de uso da CPU. Ao contrário do top, o [htop](https://github.com/hishamhm/htop) fornece uma lista completa dos processos em execução, em vez dos principais processos que consomem recursos. O htop usa cores e fornece informações visuais sobre o status do processador, da troca e da memória. O htop também pode exibir os processos como uma árvore.
 
