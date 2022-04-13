@@ -1,7 +1,7 @@
 <h1 align="center">Comandos Bash</h1>
 
 <h1 align="center">
-    <img alt="Bash" src="https://i.ibb.co/W5b899q/bash.png"> </br>
+    <img alt="Bash" src="https://raw.githubusercontent.com/the-akira/Comandos-Bash/master/Imagens/bash.png"> </br>
 </h1>
 
 Explorando a **[command-line interface (CLI)](https://en.wikipedia.org/wiki/Command-line_interface)** com a linguagem de comandos **[GNU Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell))**.
